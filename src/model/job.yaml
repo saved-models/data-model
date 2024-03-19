@@ -1,0 +1,61 @@
+# Initial hypothetical type of job:
+#
+# 1. A dummy manifest which defines some set of data. This is identical
+#    to our current use-case of `fisdat'/`fisup' to submit data to GCP.
+#
+# Unlike manifests which actually verify data *against* well-defined
+# schemata, the job manifest is explicitly data in and of itself,
+# verified against this schema. The aim is to generate JSON-LD or RDF
+# from this schema + manifest, which is then processed by the RAP.
+#
+# Here is what the LinkML documentation says:
+# [https://linkml.io/linkml/faq/general.html#is-linkml-just-for-metadata]
+#
+#' "LinkML doesn’t draw any hard and fast distinction between data and
+#' metadata, recognizing that “metadata” is often defined in relative
+#' terms."
+#
+id: http://localhost/saved/job/
+name: descriptive
+title: >-
+  SAVED data model: job template specification
+prefixes:
+  linkml: https://w3id.org/linkml/
+  saved:  http://localhost/saved/
+  csvw:   http://www.w3.org/ns/csvw/
+imports:
+  - linkml:types
+default_prefix: saved
+default_range: string
+
+slots:
+  data_uri:
+    description: >-
+      Path or URI of validated resource
+    exact_mappings: csvw:url
+    required: true
+  data_schema:
+    description: >-
+      Path or URI of schema against which the resource was validated
+    exact_mappings: csvw:tableSchema
+    required: true
+  data_hash:
+    description: >-
+      SHA384 hash of the resource
+
+classes:
+  TableDesc:
+    slots:
+      - data_uri
+      - data_schema
+      - data_hash
+  JobDesc:
+    tree_root: true
+    attributes:
+      tables:
+        multivalued:     true
+        inlined:         true
+        inlined_as_list: true
+        range: TableDesc
+      source:           # Appended to a manifest later
+        required: false

@@ -1,0 +1,24 @@
+id: http://localhost/saved/collected/
+name: collected
+title: >-
+  SAVED data model: collected data
+prefixes:
+  linkml: https://w3id.org/linkml/
+  schema: http://schema.org/
+  saved:  http://localhost/saved/
+imports:
+  - saved:core
+  - linkml:types
+default_prefix: saved
+default_range: string
+
+#emit_prefixes: saved
+
+slots:
+  # This is unambiguously collected
+  af_lice:
+    description: >-
+      Average number of Salmon lice Adult female per fish
+    range:    float
+    is_a:     column_collected
+    #slot_uri: schema:af_lice

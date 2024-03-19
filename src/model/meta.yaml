@@ -1,0 +1,20 @@
+id: http://localhost/saved/meta/
+name: meta
+title: >-
+  SAVED meta-model
+prefixes:
+  linkml: https://w3id.org/linkml/
+  schema: http://schema.org/
+  saved:  http://localhost/saved/
+imports:
+  - linkml:types
+  - saved:core
+  - saved:collected
+  - saved:descriptive
+  - saved:job
+  - saved:modelled
+default_prefix: saved
+default_range: string
+
+emit_prefixes:
+  saved

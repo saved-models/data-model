@@ -1,0 +1,55 @@
+id: http://localhost/saved/descriptive
+name: descriptive
+title: >-
+  SAVED data model: descriptive identifiers
+prefixes:
+  linkml: https://w3id.org/linkml/
+  saved:  http://localhost/saved/
+imports:
+  - saved:core
+  - linkml:types
+default_prefix: saved
+default_range: string
+
+slots:
+  # Global spatial/location identifiers
+  northings:
+    description: x-positional data
+    range: integer
+    is_a: column_descriptive
+  eastings:
+    description: y-positional data
+    range: integer
+    is_a: column_descriptive
+  latitude:
+    description: Latitude
+    range: float
+    is_a: column_descriptive
+  longitude:
+    description: Longitude
+    range: float
+    is_a: column_descriptive
+    
+  # Chronological identifiers
+  date:
+    description: Date in format of DD/MM/YY
+    range: date
+    is_a: column_descriptive
+  time:
+    description: Time in hours
+    range: time
+    minimum_value: 0
+    maximum_value: 23
+    is_a: column_descriptive
+  datetime:
+    description: Combined date/time-stamp
+    range: datetime
+    is_a: column_descriptive
+
+  # Model-specific spatial/location identifiers
+  farm_site_name:
+    description: Fish farm site local name
+    is_a: column_descriptive
+  farm_site_id:
+    description: Fish farm site global ID
+    is_a: column_descriptive

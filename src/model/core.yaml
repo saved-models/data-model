@@ -1,0 +1,32 @@
+id: http://localhost/saved/core
+name: core
+title: >-
+  SAVED data model: core2 schema, simply defining skeleton of table structure
+prefixes:
+  linkml: https://w3id.org/linkml/
+  saved:  http://localhost/saved/
+imports:
+  - linkml:types
+default_prefix: saved
+default_range: string
+
+slots:
+  column_modelled:
+    description: >-
+      Column describes modelled data
+  column_collected:
+    description: >-
+      Column describes collected data
+  column_descriptive:
+    description: >-
+      Column describes data about the world
+
+classes:
+  Column:
+    description: >-
+      SAVED model column class, to which child schemata columns map
+  TableSchema:
+    tree_root: true
+    description: >-
+      SAVED model table class, to which child schemata table structures map
+      

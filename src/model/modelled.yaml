@@ -1,0 +1,35 @@
+id: http://localhost/saved/collected/
+name: collected
+title: >-
+  SAVED data model: collected data
+prefixes:
+  linkml: https://w3id.org/linkml/
+  saved:  http://localhost/saved/
+imports:
+  - saved:core
+  - linkml:types
+default_prefix: saved
+default_range: string
+
+slots:
+  #' It is decidedly unclear if this is the best way to do this
+  #' The current data model means that we define a bunch of identifiers,
+  #' which are either modelled, collected, or descriptive.
+  # 
+  #' The count of fish could actually be either modelled, or collected.
+  #' In the current model, then, what we would do is define some
+  #' count_fish variant in both the modelled and collected schemata.
+  #
+  #' Whether we *should* unify these into a single column identifier
+  #' (which could be a completely different measure depending on the
+  #' sampling frame) is an open question, but for these examples, define
+  #' it here in the meantime...
+  #
+  #' I believe that the sampling frame should be up to the implementation
+  #' of that column. I.e., here, the interpolated count of fish does not
+  #' depend on the period being sampled, whereas the fo_lice example does.
+  count_fish_interpolated:
+    description: >-
+      Interpolated number of fish in the farm
+    range:    float
+    is_a:     column_modelled
