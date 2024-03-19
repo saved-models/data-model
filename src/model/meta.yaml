@@ -8,11 +8,11 @@ prefixes:
   saved:  http://localhost/saved/
 imports:
   - linkml:types
-  - saved:core
-  - saved:collected
-  - saved:descriptive
-  - saved:job
-  - saved:modelled
+  - ./core
+  - ./collected
+  - ./descriptive
+  - ./job
+  - ./modelled
 default_prefix: saved
 default_range: string
 

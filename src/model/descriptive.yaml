@@ -6,7 +6,7 @@ prefixes:
   linkml: https://w3id.org/linkml/
   saved:  http://localhost/saved/
 imports:
-  - saved:core
+  - ./core
   - linkml:types
 default_prefix: saved
 default_range: string

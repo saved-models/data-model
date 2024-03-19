@@ -7,7 +7,7 @@ prefixes:
   schema: http://schema.org/
   saved:  http://localhost/saved/
 imports:
-  - saved:core
+  - ./core
   - linkml:types
 default_prefix: saved
 default_range: string
