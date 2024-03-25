@@ -50,7 +50,6 @@ classes:
       - data_schema
       - data_hash
   JobDesc:
-    tree_root: true
     attributes:
       tables:
         multivalued:     true
