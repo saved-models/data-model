@@ -10,15 +10,36 @@ imports:
   - ./core
   - linkml:types
 default_prefix: saved
-default_range: string
 
-#emit_prefixes: saved
+slots:    
+  fish_length:
+    description: Length of fish expressed in mm
+    range: float
+    is_a:  column_collected
+    
+  fish_mass:
+    description: Weight of fish expressed in grams
+    range: float
+    is_a:  column_collected
+    
+  fish_species_common:
+    description: Common name of species sampled (in this case, Salmon refers to Salmosalar only)
+    range: string
+    is_a:  column_collected
+    broad_mappings: saved:fish_species_scientific
+    
+  fish_species_scientific:
+    description: Scientific name of species sampled
+    range: string
+    is_a:  column_collected
+    broad_mappings: fish_species_common
 
-slots:
-  # This is unambiguously collected
-  af_lice:
-    description: >-
-      Average number of Salmon lice Adult female per fish
-    range:    float
-    is_a:     column_collected
-    #slot_uri: schema:af_lice
+  lice_af_average:
+    description: Average number of Salmon lice (adult female) per fish
+    range: float
+    is_a:  column_collected
+
+  lice_af_total:
+    description: Total number of Salmon lice per fish
+    range: integer
+    is_a:  column_collected
