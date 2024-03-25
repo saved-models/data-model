@@ -1,0 +1,13 @@
+id: http://localhost/saved/types
+name: types
+title: >-
+  SAVED data model: custom data types
+  linkml: https://w3id.org/linkml/
+  saved:  http://localhost/saved/
+imports:
+  - linkml:types
+default_prefix: saved
+default_range: string
+
+types:
+  NA_real

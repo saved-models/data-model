@@ -11,35 +11,50 @@ imports:
   - linkml:types
 default_prefix: saved
 
-slots:    
+slots:
+
+  count_fish_sampled:
+    description:     Sampled number of fish in the farm
+    range:           float
+    is_a:            column_modelled
+    narrow_mappings: saved:count_fish_interpolated
+
   fish_length:
-    description: Length of fish expressed in mm
-    range: float
-    is_a:  column_collected
-    
+    description:     Length of fish expressed (mm)
+    range:           float
+    is_a:            column_collected
+
   fish_mass:
-    description: Weight of fish expressed in grams
-    range: float
-    is_a:  column_collected
+    description:     Weight of fish expressed (g)
+    range:           float
+    is_a:            column_collected
     
   fish_species_common:
-    description: Common name of species sampled (in this case, Salmon refers to Salmosalar only)
-    range: string
-    is_a:  column_collected
-    broad_mappings: saved:fish_species_scientific
+    description:     Common name of species sampled
+    range:           string
+    is_a:            column_collected
+    broad_mappings:  saved:fish_species_scientific
     
   fish_species_scientific:
-    description: Scientific name of species sampled
-    range: string
-    is_a:  column_collected
-    broad_mappings: saved:fish_species_common
+    description:     Scientific name of species sampled
+    range:           string
+    is_a:            column_collected
+    broad_mappings:  saved:fish_species_common
 
   lice_af_average:
-    description: Average number of Salmon lice (adult female) per fish
-    range: float
-    is_a:  column_collected
+    description:     Average number of Salmon lice (adult female) per fish
+    range:           float
+    is_a:            column_collected
 
   lice_af_total:
-    description: Total number of Salmon lice per fish
-    range: integer
-    is_a:  column_collected
+    description:     Total number of Salmon lice per fish
+    range:           integer
+    is_a:            column_collected
+
+  lice_density_sampled:
+    description:     Sampled lice density (lice per m³)
+    range:           float
+    is_a:            column_collected
+    narrow_mappings: saved:lice_density_modelled
+
+  

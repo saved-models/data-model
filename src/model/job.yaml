@@ -30,18 +30,18 @@ default_range: string
 
 slots:
   data_uri:
-    description: >-
-      Path or URI of validated resource
+    description:    Path or URI of validated resource
+    range:          str
     exact_mappings: csvw:url
-    required: true
+    required:       true
   data_schema:
-    description: >-
-      Path or URI of schema against which the resource was validated
+    description:    Path or URI of schema against which the resource was validated
+    range:          str
     exact_mappings: csvw:tableSchema
-    required: true
+    required:       true
   data_hash:
-    description: >-
-      SHA384 hash of the resource
+    description:    SHA384 hash of the resource
+    range:          string
 
 classes:
   TableDesc:
@@ -56,5 +56,5 @@ classes:
         inlined:         true
         inlined_as_list: true
         range: TableDesc
-      source:           # Appended to a manifest later
+      source:
         required: false

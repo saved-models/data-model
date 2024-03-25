@@ -20,43 +20,44 @@ types:
 slots:
   # Global spatial/location identifiers
   northing:
-    description: >-
-      'X'-positional data relative to point of origin
-    range: integer
-    is_a:  column_descriptive
+    description:    'X'-positional data relative to point of origin
+    range:          integer
+    is_a:           column_descriptive
     
   easting:
-    description: >-
-      'Y'-positional data relative to point of origin
-    range: integer
-    is_a:  column_descriptive
+    description:    'Y'-positional data relative to point of origin
+    range:          integer
+    is_a:           column_descriptive
 
   national_grid_reference:
-    description: National grid reference (NGR) point of origin
-    range: string
-    is_a:  column_descriptive
+    description:    National grid reference (NGR) point of origin
+    range:          string
+    is_a:           column_descriptive
     
   latitude:
-    description: Latitude
+    description:    Latitude
+    is_a:           column_descriptive
     any_of: 
-      - range: LatLonType
-      - range: float
-    is_a: column_descriptive
+      - range:      LatLonType
+      - range:      float
     
   longitude:
-    description: Longitude
+    description:    Longitude
+    is_a:           column_descriptive
     any_of: 
-      - range: LatLonType
-      - range: float
-    is_a: column_descriptive
+      - range:      LatLonType
+      - range:      float
+    
 
   global_coordinate_system:
-    description: Global coordinate system (GCS) reference point of origin
+    description:    Global coordinate system (GCS) reference point of origin
+    is_a:           column_descriptive
+    range:          string
     
   depth:
-    description: Depth in metres
-    range: float
-    is_a:  column_descriptive
+    description:    Depth in metres
+    range:          float
+    is_a:           column_descriptive
     
   # Chronological identifiers
   #date:
@@ -66,29 +67,30 @@ slots:
 
   # Data-set descriptive identifiers
   series:
-    description: Data series to which a given observation belongs
-    range: string
-    is_a:  column_descriptive
+    description:    Data series to which a given observation belongs
+    range:          string
+    is_a:           column_descriptive
     
   notes:
-    description: Notes and caveats about a given observation or modelled value
-    range: string
-    is_a:  column_descriptive
+    description:    Notes and caveats about a given observation or modelled value
+    range:          string
+    is_a:           column_descriptive
     
   # Model-specific spatial/location identifiers
   site_name:
-    description: Fish farm station/site local name
-    range: string
-    is_a:  column_descriptive
+    description:    Fish farm station/site local name
+    range:          string
+    is_a:           column_descriptive
     
   site_id:
-    description: Fish farm station/site global ID
-    range: string
-    is_a:  column_descriptive
+    description:    Fish farm station/site global ID
+    range:          string
+    is_a:           column_descriptive
 
   cage_id:
-    description: Semi-numeric cage identifier, related to station/site
+    description:    Semi-numeric cage identifier, related to station/site
+    is_a:           column_descriptive
     any_of:
       - range: string
       - range: integer
-    is_a: column_descriptive
+

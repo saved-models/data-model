@@ -12,11 +12,8 @@ default_range: string
 
 slots:
   column_modelled:
-    description: >-
-      Column describes modelled data
+    description: Column describes modelled data
   column_collected:
-    description: >-
-      Column describes collected data
+    description: Column describes collected data
   column_descriptive:
-    description: >-
-      Column describes data about the world
+    description: Column describes data about the world

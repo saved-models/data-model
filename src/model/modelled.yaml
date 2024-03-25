@@ -12,24 +12,15 @@ default_prefix: saved
 default_range: string
 
 slots:
-  #' It is decidedly unclear if this is the best way to do this
-  #' The current data model means that we define a bunch of identifiers,
-  #' which are either modelled, collected, or descriptive.
-  # 
-  #' The count of fish could actually be either modelled, or collected.
-  #' In the current model, then, what we would do is define some
-  #' count_fish variant in both the modelled and collected schemata.
-  #
-  #' Whether we *should* unify these into a single column identifier
-  #' (which could be a completely different measure depending on the
-  #' sampling frame) is an open question, but for these examples, define
-  #' it here in the meantime...
-  #
-  #' I believe that the sampling frame should be up to the implementation
-  #' of that column. I.e., here, the interpolated count of fish does not
-  #' depend on the period being sampled, whereas the fo_lice example does.
+
   count_fish_interpolated:
-    description: >-
-      Interpolated number of fish in the farm
-    range:    float
-    is_a:     column_modelled
+    description:     Interpolated number of fish in the farm
+    range:           float
+    is_a:            column_modelled
+    narrow_mappings: saved:count_fish_sampled
+
+  lice_density_modelled:
+    description:     Modelled lice density (lice per m³)
+    range:           float
+    is_a:            column_collected
+    narrow_mappings: saved:lice_density_sampled
