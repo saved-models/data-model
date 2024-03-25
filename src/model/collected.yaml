@@ -32,7 +32,7 @@ slots:
     description: Scientific name of species sampled
     range: string
     is_a:  column_collected
-    broad_mappings: fish_species_common
+    broad_mappings: saved:fish_species_common
 
   lice_af_average:
     description: Average number of Salmon lice (adult female) per fish
