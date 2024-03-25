@@ -31,12 +31,12 @@ default_range: string
 slots:
   data_uri:
     description:    Path or URI of validated resource
-    range:          str
+    range:          string
     exact_mappings: csvw:url
     required:       true
   data_schema:
     description:    Path or URI of schema against which the resource was validated
-    range:          str
+    range:          string
     exact_mappings: csvw:tableSchema
     required:       true
   data_hash:

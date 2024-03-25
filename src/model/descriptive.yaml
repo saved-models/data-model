@@ -13,19 +13,21 @@ default_prefix: saved
 types:
   LatLonType:
     pattern: "[0-9]+o [0-9]+.[0-9]+[N|W]"
-    base: str
-    repr: str
-    uri:  saved:LatLon
+    base:    str
+    repr:    str
+    uri:     saved:LatLon
 
 slots:
   # Global spatial/location identifiers
   northing:
-    description:    'X'-positional data relative to point of origin
+    description: >-
+      'X'-positional data relative to point of origin
     range:          integer
     is_a:           column_descriptive
     
   easting:
-    description:    'Y'-positional data relative to point of origin
+    description: >-
+      'Y'-positional data relative to point of origin
     range:          integer
     is_a:           column_descriptive
 
@@ -48,7 +50,6 @@ slots:
       - range:      LatLonType
       - range:      float
     
-
   global_coordinate_system:
     description:    Global coordinate system (GCS) reference point of origin
     is_a:           column_descriptive
