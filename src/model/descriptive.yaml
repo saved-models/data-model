@@ -16,11 +16,6 @@ types:
     base: str
     repr: str
     uri:  saved:LatLon
-  YearType:
-    pattern: "[1-2][0-9][0-9][0-9]"
-    base: int
-    repr: int
-    uri:  saved:YearType
 
 slots:
   # Global spatial/location identifiers
@@ -44,14 +39,14 @@ slots:
   latitude:
     description: Latitude
     any_of: 
-      - range: LatLon
+      - range: LatLonType
       - range: float
     is_a: column_descriptive
     
   longitude:
     description: Longitude
     any_of: 
-      - range: LatLon
+      - range: LatLonType
       - range: float
     is_a: column_descriptive
 
@@ -64,27 +59,10 @@ slots:
     is_a:  column_descriptive
     
   # Chronological identifiers
-  #year:
-  #  description: Year
-  #  range: YearType
-  #  is_a:  column_descriptive
-    
   #date:
   #  description: Date in format of DD/MM/YY
   #  range: date
   #  is_a:  column_descriptive
-    
-  #time:
-  #  description: Time in hours
-  #  range: time
-  #  minimum_value: 0
-  #  maximum_value: 23
-  #  is_a: column_descriptive
-    
-  #datetime:
-  #  description: Combined date/time-stamp
-  #  range: datetime
-  #  is_a: column_descriptive
 
   # Data-set descriptive identifiers
   series:
