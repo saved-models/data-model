@@ -16,7 +16,7 @@
 #' terms."
 #
 id: http://localhost/saved/job/
-name: descriptive
+name: job
 title: >-
   SAVED data model: job template specification
 prefixes:
@@ -25,36 +25,88 @@ prefixes:
   csvw:   http://www.w3.org/ns/csvw/
 imports:
   - linkml:types
+  - linkml:datasets
+  - saved:core
 default_prefix: saved
-default_range: string
 
 slots:
-  data_uri:
-    description:    Path or URI of validated resource
+
+  schema_path:
+    description:    Path or URI of schema associated with a resource
+    broad_mappings: linkml:path
     range:          string
-    exact_mappings: csvw:url
-    required:       true
-  data_schema:
-    description:    Path or URI of schema against which the resource was validated
+    
+  scope:
+    description: >-
+      Columns or dimensions of a given resource, which should be brought
+      into the scope of a given context. Typical use of this list is to
+      auto-generate a set of jobs or operations from this list, or to
+      permit a set of manually-specified jobs or operations to use one or
+      more of those listed.
     range:          string
-    exact_mappings: csvw:tableSchema
-    required:       true
-  data_hash:
-    description:    SHA384 hash of the resource
+    multivalued:    true
+  
+  job_type:
+    description:    Job type code
     range:          string
+    pattern:        "^:?[a-z]+[[a-z]|_|]*$"
+  job_auto_generate:
+    description:    Auto-generate job based on job type/ID and projected columns
+    range:          boolean
+  job_sources:
+    description:    Tables and columns from which to generate a job
+    range:          SourceDesc
 
 classes:
+
   TableDesc:
+    description: >-
+      Job manifest: data source descriptive attributes
     slots:
-      - data_uri
-      - data_schema
-      - data_hash
+      - title
+      - atomic_name # saved:atomic_name
+      - description
+      - path
+      - schema_path # saved:schema_path
+      - hash
+      - scope       # saved:scope
+      
   JobDesc:
+    description: >-
+      Job manifest: job specification attributes
+    slots:
+      - title
+      - atomic_name
+      - job_type
+      - job_auto_generate
+      - job_sources
+      
+  SourceDesc:
+    description: >-
+      Job manifest: data-set and column selection attributes
+    slots:
+      - atomic_name
+      - scope
+      
+  ManifestDesc:
+    description: >-
+      Job manifest: complete specification
     attributes:
       tables:
+        description:     Specification of mappings between resources and schemas, as well as columns or dimensions to bring into into scope
         multivalued:     true
         inlined:         true
         inlined_as_list: true
-        range: TableDesc
-      source:
-        required: false
+        range:           TableDesc
+      gcp_source:
+        description:     GCP account of the generator of the manifest
+        range:           string
+      local_version:
+        description:     Version number of local submission utility
+        range:           string
+      jobs:
+        description:     Specification of operations to run on resources and schemas provided
+        multivalued:     true
+        inlined:         true
+        inlined_as_list: true
+        range:           JobDesc

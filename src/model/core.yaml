@@ -5,15 +5,32 @@ title: >-
 prefixes:
   linkml: https://w3id.org/linkml/
   saved:  http://localhost/saved/
+  dc:     http://purl.org/dc/
 imports:
   - linkml:types
 default_prefix: saved
 default_range: string
 
 slots:
+  
   column_modelled:
-    description: Column describes modelled data
+    description:    Column describes modelled data
   column_collected:
-    description: Column describes collected data
+    description:    Column describes collected data
   column_descriptive:
-    description: Column describes data about the world
+    description:    Column describes data about the world
+
+  # https://www.ecb.torontomu.ca/~elf/pub/misc/micromanualLISP.pdf
+  # https://hexdocs.pm/elixir/1.16.2/Atom.html
+  atomic_name:
+    description: >-
+      Short-form name / atom: lower-case, no special characters excepting underscores
+    range:          string
+    broad_mappings:
+                    - saved:name
+                    - dc:title
+    pattern:        "^:?[a-z]+[[a-z]|_|]*$"
+    exact_mappings: dc:identifier
+    
+    
+
