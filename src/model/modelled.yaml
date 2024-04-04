@@ -17,10 +17,10 @@ slots:
     description:     Interpolated number of fish in the farm
     range:           float
     is_a:            column_modelled
-    narrow_mappings: saved:count_fish_sampled
+    narrow_mappings: saved:count_fish_collected
 
   lice_density_modelled:
     description:     Modelled lice density (lice per m³)
     range:           float
-    is_a:            column_collected
-    narrow_mappings: saved:lice_density_sampled
+    is_a:            column_modelled
+    narrow_mappings: saved:lice_density_collected

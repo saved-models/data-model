@@ -13,10 +13,10 @@ default_prefix: saved
 
 slots:
 
-  count_fish_sampled:
+  count_fish_collected:
     description:     Sampled number of fish in the farm
     range:           float
-    is_a:            column_modelled
+    is_a:            column_collected
     narrow_mappings: saved:count_fish_interpolated
 
   fish_length:
@@ -51,7 +51,7 @@ slots:
     range:           integer
     is_a:            column_collected
 
-  lice_density_sampled:
+  lice_density_collected:
     description:     Sampled lice density (lice per m³)
     range:           float
     is_a:            column_collected
