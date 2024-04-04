@@ -26,11 +26,20 @@ prefixes:
 imports:
   - linkml:types
   - linkml:datasets
-  - saved:core
 default_prefix: saved
 
 slots:
 
+  atomic_name:
+    description: >-
+      Short-form name / atom: lower-case, no special characters excepting underscores
+    range:          string
+    broad_mappings:
+                    - saved:name
+                    - dc:title
+    pattern:        "^:?[a-z]+[[a-z]|_|]*$"
+    exact_mappings: dc:identifier
+  
   schema_path:
     description:    Path or URI of schema associated with a resource
     broad_mappings: linkml:path
@@ -64,12 +73,12 @@ classes:
       Job manifest: data source descriptive attributes
     slots:
       - title
-      - atomic_name # saved:atomic_name
+      - atomic_name
       - description
       - path
-      - schema_path # saved:schema_path
+      - schema_path
       - hash
-      - scope       # saved:scope
+      - scope
       
   JobDesc:
     description: >-
