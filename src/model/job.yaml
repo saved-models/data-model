@@ -26,6 +26,7 @@ imports:
   - linkml:types
   - linkml:datasets
 default_prefix: saved
+default_range: string
 
 slots:
 
