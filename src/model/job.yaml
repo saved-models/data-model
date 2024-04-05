@@ -22,7 +22,6 @@ title: >-
 prefixes:
   linkml: https://w3id.org/linkml/
   saved:  http://localhost/saved/
-  csvw:   http://www.w3.org/ns/csvw/
 imports:
   - linkml:types
   - linkml:datasets
@@ -39,11 +38,13 @@ slots:
                     - dc:title
     pattern:        "^:?[a-z]+[[a-z]|_|]*$"
     exact_mappings: dc:identifier
+    required:       true
   
   schema_path:
     description:    Path or URI of schema associated with a resource
     broad_mappings: linkml:path
     range:          string
+    required:       true
     
   scope:
     description: >-
@@ -54,18 +55,24 @@ slots:
       more of those listed.
     range:          string
     multivalued:    true
+    required:       true
   
   job_type:
     description:    Job type code
     range:          string
     pattern:        "^:?[a-z]+[[a-z]|_|]*$"
+    required:       true
+    
   job_auto_generate:
     description:    Auto-generate job based on job type/ID and projected columns
     range:          boolean
+    required:       true
+    
   job_sources:
     description:    Tables and columns from which to generate a job
     range:          SourceDesc
-
+    required:       true
+    
 classes:
 
   TableDesc:
@@ -107,15 +114,19 @@ classes:
         inlined:         true
         inlined_as_list: true
         range:           TableDesc
+        required:        true
       gcp_source:
         description:     GCP account of the generator of the manifest
         range:           string
+        required:        false
       local_version:
         description:     Version number of local submission utility
         range:           string
+        required:        false
       jobs:
         description:     Specification of operations to run on resources and schemas provided
         multivalued:     true
         inlined:         true
         inlined_as_list: true
         range:           JobDesc
+        required:        true
