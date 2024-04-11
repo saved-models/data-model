@@ -29,7 +29,7 @@ default_prefix: saved
 default_range: string
 
 slots:
-
+  
   atomic_name:
     description: >-
       Short-form name / atom: lower-case, no special characters excepting underscores
@@ -40,7 +40,17 @@ slots:
     pattern:        "^:?[a-z]+[[a-z]|_|]*$"
     exact_mappings: dc:identifier
     required:       true
-  
+
+  #path:
+  #  description:    Path or URI of resource
+  #  range:          string
+  #  required:       true
+  #
+  #hash:
+  #  description:    Path or URI of resource
+  #  range:          string
+  #  required:       true
+    
   schema_path:
     description:    Path or URI of schema associated with a resource
     broad_mappings: linkml:path
@@ -72,6 +82,7 @@ slots:
   job_sources:
     description:    Tables and columns from which to generate a job
     range:          SourceDesc
+    multivalued:    true
     required:       true
     
 classes:
@@ -109,6 +120,10 @@ classes:
     description: >-
       Job manifest: complete specification
     attributes:
+      manifest_name:
+        description:     Code to identify the manifest
+        identifier:      true
+        range:           string
       tables:
         description:     Specification of mappings between resources and schemas, as well as columns or dimensions to bring into into scope
         multivalued:     true
