@@ -5,11 +5,9 @@ title: >-
 prefixes:
   linkml: https://w3id.org/linkml/
   saved:  http://localhost/saved/
-  dc:     http://purl.org/dc/
 imports:
   - linkml:types
 default_prefix: saved
-default_range: string
 
 slots:
   

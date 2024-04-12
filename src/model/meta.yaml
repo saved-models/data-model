@@ -4,7 +4,6 @@ title: >-
   SAVED meta-model
 prefixes:
   linkml: https://w3id.org/linkml/
-  schema: http://schema.org/
   saved:  http://localhost/saved/
 imports:
   - linkml:types
@@ -14,7 +13,6 @@ imports:
   - ./job
   - ./modelled
 default_prefix: saved
-default_range: string
 
 emit_prefixes:
   saved

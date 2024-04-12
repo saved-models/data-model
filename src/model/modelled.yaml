@@ -9,7 +9,6 @@ imports:
   - ./core
   - linkml:types
 default_prefix: saved
-default_range: string
 
 slots:
 

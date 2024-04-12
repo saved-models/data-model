@@ -72,11 +72,6 @@ slots:
     range:          string
     is_a:           column_descriptive
     
-  notes:
-    description:    Notes and caveats about a given observation or modelled value
-    range:          string
-    is_a:           column_descriptive
-    
   # Model-specific spatial/location identifiers
   site_name:
     description:    Fish farm station/site local name

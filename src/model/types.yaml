@@ -7,5 +7,4 @@ title: >-
 imports:
   - linkml:types
 default_prefix: saved
-default_range: string    
   

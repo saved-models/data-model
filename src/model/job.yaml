@@ -20,13 +20,14 @@ name: job
 title: >-
   SAVED data model: job template specification
 prefixes:
-  linkml: https://w3id.org/linkml/
-  saved:  http://localhost/saved/
+  dcterms: http://purl.org/dc/terms/
+  linkml:  https://w3id.org/linkml/
+  pav:     http://purl.org/pav/
+  saved:   http://localhost/saved/
 imports:
   - linkml:types
-  - linkml:datasets
 default_prefix: saved
-default_range: string
+default_range:  string  
 
 slots:
   
@@ -39,20 +40,43 @@ slots:
                     - dc:title
     pattern:        "^:?[a-z]+[[a-z]|_|]*$"
     exact_mappings: dc:identifier
+    identifier:     true
     required:       true
 
-  #path:
-  #  description:    Path or URI of resource
-  #  range:          string
-  #  required:       true
+  # Not from linkml:types, only in linkml:meta and linkml:datasets
+  # Note, linkml:datasets is *not* imported by linkml:meta
   #
-  #hash:
-  #  description:    Path or URI of resource
-  #  range:          string
-  #  required:       true
+  # These are essentially duplicates of terms in Dublin Core,
+  # so it is fairly reasonable to duplicate these here too, instead of importing
+  # the entire linkml:meta or linkml:datasets
+  #
+  # Further emphasise once again that job.yaml is being used as the
+  # schema for our job manifests, see comment at top of file.
+  title:
+    description: >-
+      A concise human-readable display label for the element. The title should mirror the name,
+      and should use ordinary textual punctuation.
+    range:          string
+    slot_uri:       dcterms:title
+
+  description:
+    description:    Human-readable description of the information
+    range:          string
+    slot_uri:       dcterms:description
+    required:       false
+
+  resource_hash:
+    description:    Hash of resource 
+    range:          string
+    required:       true
+    
+  resource_path:
+    description:    Path or URI of resource
+    range:          string
+    required:       true
     
   schema_path:
-    description:    Path or URI of schema associated with a resource
+    description:    Path or URI of schema associated with resource
     broad_mappings: linkml:path
     range:          string
     required:       true
@@ -83,66 +107,71 @@ slots:
     description:    Tables and columns from which to generate a job
     range:          SourceDesc
     multivalued:    true
+    inlined:         true
+    inlined_as_list: true
     required:       true
-    
+
+  tables:
+    description:     Specification of mappings between resources and schemas, as well as columns or dimensions to bring into into scope
+    multivalued:     true
+    inlined:         true
+    inlined_as_list: true
+    range:           TableDesc
+    required:        true
+  jobs:
+    description:     Specification of operations to run on resources and schemas provided
+    multivalued:     true
+    inlined:         true
+    inlined_as_list: true
+    range:           JobDesc
+    required:        true
+  gcp_source:
+    description:     GCP account of the generator of the manifest
+    range:           string
+    required:        false
+  local_version:
+    description:     Version number of local submission utility
+    range:           string
+    required:        false
+    narrow_mappings: pav:version
+
 classes:
 
   TableDesc:
     description: >-
       Job manifest: data source descriptive attributes
     slots:
-      - title
       - atomic_name
+      - title
       - description
-      - path
+      - resource_path
       - schema_path
-      - hash
+      - resource_hash
       - scope
-      
-  JobDesc:
-    description: >-
-      Job manifest: job specification attributes
-    slots:
-      - title
-      - atomic_name
-      - job_type
-      - job_auto_generate
-      - job_sources
-      
+
   SourceDesc:
     description: >-
       Job manifest: data-set and column selection attributes
     slots:
       - atomic_name
       - scope
+                
+  JobDesc:
+    description: >-
+      Job manifest: job specification attributes
+    slots:
+      - atomic_name
+      - title
+      - job_type
+      - job_auto_generate
+      - job_sources
       
   ManifestDesc:
     description: >-
       Job manifest: complete specification
-    attributes:
-      manifest_name:
-        description:     Code to identify the manifest
-        identifier:      true
-        range:           string
-      tables:
-        description:     Specification of mappings between resources and schemas, as well as columns or dimensions to bring into into scope
-        multivalued:     true
-        inlined:         true
-        inlined_as_list: true
-        range:           TableDesc
-        required:        true
-      gcp_source:
-        description:     GCP account of the generator of the manifest
-        range:           string
-        required:        false
-      local_version:
-        description:     Version number of local submission utility
-        range:           string
-        required:        false
-      jobs:
-        description:     Specification of operations to run on resources and schemas provided
-        multivalued:     true
-        inlined:         true
-        inlined_as_list: true
-        range:           JobDesc
-        required:        true
+    slots:
+      - atomic_name
+      - tables
+      - jobs
+      - gcp_source
+      - local_version
