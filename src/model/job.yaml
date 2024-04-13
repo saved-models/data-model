@@ -20,6 +20,7 @@ name: job
 title: >-
   SAVED data model: job template specification
 prefixes:
+  dc:      http://purl.org/dc/elements/1.1/
   dcterms: http://purl.org/dc/terms/
   linkml:  https://w3id.org/linkml/
   pav:     http://purl.org/pav/
