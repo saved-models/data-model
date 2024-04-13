@@ -80,6 +80,12 @@ slots:
     broad_mappings: linkml:path
     range:          string
     required:       true
+
+  table:
+    description:    Table description of a given resource, specifically matching the `atomic_name' field of a given instance of the `TableDesc' class.
+    range:          string
+    pattern:        "^:?[a-z]+[[a-z]|_|]*$"
+    required:       true
     
   scope:
     description: >-
@@ -154,6 +160,7 @@ classes:
       Job manifest: data-set and column selection attributes
     slots:
       - atomic_name
+      - table
       - scope
                 
   JobDesc:
