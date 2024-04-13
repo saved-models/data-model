@@ -6,6 +6,7 @@ SCHEMA_DIR  = $(SRC)/model
 SCHEMA_ROOT = $(SCHEMA_DIR)/meta.yaml
 
 PROJECT_DIR = project
+PROJECT_RDF = $(PROJECT_DIR)/rdf
 
 PYMODEL     = $(SCHEMA_DIR)/datamodel
 DOC_DIR     = docs
@@ -25,6 +26,9 @@ $(DOC_DIR):
 $(PROJECT_DIR):
 	mkdir -p $@
 
+$(PROJECT_RDF):
+	mkdir -p $@
+
 help:
 	@echo "make all    | build markdown documentation and HTML site"
 	@echo "make clean  | clean up"
@@ -34,8 +38,13 @@ copy-contrib:
 	cp $(SRC)/*.md $(DOC_DIR)
 
 gen-project: $(PROJECT_DIR)
-	gen-project -d $(PROJECT_DIR) $(SCHEMA_ROOT) && \
-	mv $(PROJECT_DIR)/*.py $(PYMODEL)
+	gen-project -d $(PROJECT_DIR) $(SCHEMA_ROOT)
+
+gen-rdf-nt: $(PROJECT_RDF)
+	gen-rdf -v --stacktrace -f nt -o $(PROJECT_RDF)/saved.nt $(SCHEMA_ROOT)
+
+gen-rdf-ttl: $(PROJECT_RDF)
+	gen-rdf -v --stacktrace -f ttl -o $(PROJECT_RDF)/saved.ttl $(SCHEMA_ROOT)
 
 MKDOCS = mkdocs
 
