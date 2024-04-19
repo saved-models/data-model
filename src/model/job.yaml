@@ -1,8 +1,5 @@
 # Initial hypothetical type of job:
 #
-# 1. A dummy manifest which defines some set of data. This is identical
-#    to our current use-case of `fisdat'/`fisup' to submit data to GCP.
-#
 # Unlike manifests which actually verify data *against* well-defined
 # schemata, the job manifest is explicitly data in and of itself,
 # verified against this schema. The aim is to generate JSON-LD or RDF
@@ -35,14 +32,14 @@ slots:
   atomic_name:
     description: >-
       Short-form name / atom: lower-case, no special characters excepting underscores
-    range:          string
+    range:           string
     broad_mappings:
-                    - saved:name
-                    - dc:title
-    pattern:        "^:?[a-z]+[[a-z]|_|]*$"
-    exact_mappings: dc:identifier
-    identifier:     true
-    required:       true
+      - saved:name
+      - dc:title
+    pattern:         "^:?[a-z]+[[a-z]|_|]*$"
+    exact_mappings:  dc:identifier
+    identifier:      true
+    required:        true
 
   # Not from linkml:types, only in linkml:meta and linkml:datasets
   # Note, linkml:datasets is *not* imported by linkml:meta
@@ -57,36 +54,36 @@ slots:
     description: >-
       A concise human-readable display label for the element. The title should mirror the name,
       and should use ordinary textual punctuation.
-    range:          string
-    slot_uri:       dcterms:title
+    range:           string
+    slot_uri:        dcterms:title
 
   description:
-    description:    Human-readable description of the information
-    range:          string
-    slot_uri:       dcterms:description
-    required:       false
+    description:     Human-readable description of the information
+    range:           string
+    slot_uri:        dcterms:description
+    required:        false
 
   resource_hash:
-    description:    Hash of resource 
-    range:          string
-    required:       true
+    description:     Hash of resource 
+    range:           string
+    required:        true
     
   resource_path:
-    description:    Path or URI of resource
-    range:          string
-    required:       true
+    description:     Path or URI of resource
+    range:           string
+    required:        true
     
   schema_path:
-    description:    Path or URI of schema associated with resource
-    broad_mappings: linkml:path
-    range:          string
-    required:       true
+    description:     Path or URI of schema associated with resource
+    broad_mappings:  linkml:path
+    range:           string
+    required:        true
 
   table:
-    description:    Table description of a given resource, specifically matching the `atomic_name' field of a given instance of the `TableDesc' class.
-    range:          string
-    pattern:        "^:?[a-z]+[[a-z]|_|]*$"
-    required:       true
+    description:     Table description of a given resource, specifically matching the `atomic_name' field of a given instance of the `TableDesc' class.
+    range:           string
+    pattern:         "^:?[a-z]+[[a-z]|_|]*$"
+    required:        true
     
   scope:
     description: >-
@@ -95,28 +92,18 @@ slots:
       auto-generate a set of jobs or operations from this list, or to
       permit a set of manually-specified jobs or operations to use one or
       more of those listed.
-    range:          string
-    multivalued:    true
-    required:       true
-  
-  job_type:
-    description:    Job type code
-    range:          string
-    pattern:        "^:?[a-z]+[[a-z]|_|]*$"
-    required:       true
+    range:           string
+    multivalued:     true
+    inlined:         false
+    inlined_as_list: false
+    required:        true
+    #list_elements_ordered: true
     
-  job_auto_generate:
-    description:    Auto-generate job based on job type/ID and projected columns
-    range:          boolean
-    required:       true
-    
-  job_sources:
-    description:    Tables and columns from which to generate a job
-    range:          SourceDesc
-    multivalued:    true
-    inlined:         true
-    inlined_as_list: true
-    required:       true
+  #job_type:
+  #  description:     Job type
+  #  range:           string
+  #  required:        true
+  #  designates_type: true
 
   tables:
     description:     Specification of mappings between resources and schemas, as well as columns or dimensions to bring into into scope
@@ -125,6 +112,8 @@ slots:
     inlined_as_list: true
     range:           TableDesc
     required:        true
+    #list_elements_ordered: true
+    
   jobs:
     description:     Specification of operations to run on resources and schemas provided
     multivalued:     true
@@ -132,6 +121,8 @@ slots:
     inlined_as_list: true
     range:           JobDesc
     required:        true
+    #list_elements_ordered: true
+    
   gcp_source:
     description:     GCP account of the generator of the manifest
     range:           string
@@ -166,13 +157,57 @@ classes:
                 
   JobDesc:
     description: >-
-      Job manifest: job specification attributes
+      Job manifest: job specification attributes which specific job sub-classes inherit
     slots:
       - atomic_name
       - title
-      - job_type
-      - job_auto_generate
-      - job_sources
+
+  JobDummy:
+    is_a:        JobDesc
+    description: >-
+      A 'dummy' job which will never be run. For a simple test job, try mean absolute error (MAE).
+    attributes:
+      columns:
+        description:       A set of columns
+        range:             string
+        multivalued:       true
+      
+  JobMAE:
+    is_a:        JobDesc
+    description: >-
+      Mean absolute error (MAE): compare modelled and observed values of a series
+    attributes:
+      collected_columns:
+        description:       Names of input columns containing collected or observed values
+        range:             string
+        multivalued:       true
+        required:          false
+      modelled_columns:
+        description:       Names of input columns containing modelled or simulated values
+        range:             string
+        multivalued:       true
+        required:          false
+
+  JobDensity:
+    is_a:        JobDesc
+    description: >-
+      Prediction of sea lice count given cage data, lice density and time series
+    attributes:
+      cage_table:
+        description:       Name of table which describes the cage data file
+        range:             string
+      cage_column:
+        description:       Name of column in cage table containing cage data
+        range:             string
+      density_table:
+        description:       Name of table which describes the density data file
+        range:             string
+      density_column:
+        description:       Name of column in density table containing density data
+        range:             string
+      density_time_column:
+        description:       Name of column in density table containing time data
+        range:             string
       
   ManifestDesc:
     description: >-
