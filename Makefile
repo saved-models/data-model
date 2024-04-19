@@ -14,7 +14,7 @@ SITE_DIR    = site
 
 .PHONY: all clean
 
-all: gen-project gen-doc build-html
+site: gen-project gen-doc build-html
 %.yaml: gen-project
 
 $(PYMODEL):
@@ -30,9 +30,10 @@ $(PROJECT_RDF):
 	mkdir -p $@
 
 help:
-	@echo "make all    | build markdown documentation and HTML site"
-	@echo "make clean  | clean up"
-	@echo "make help   | show this help message"
+	@echo "make site  | build markdown documentation and HTML site"
+	@echo "make rdf   | additionally generate RDF (turtle and n-triples)"
+	@echo "make clean | clean up"
+	@echo "make help  | show this help message"
 
 copy-contrib:
 	cp $(SRC)/*.md $(DOC_DIR)
@@ -40,11 +41,13 @@ copy-contrib:
 gen-project: $(PROJECT_DIR)
 	gen-project -d $(PROJECT_DIR) $(SCHEMA_ROOT)
 
-gen-rdf-nt: $(PROJECT_RDF)
+gen-rdf-nt: $(PROJECT_RDF) gen-project
 	gen-rdf -v --stacktrace -f nt -o $(PROJECT_RDF)/saved.nt $(SCHEMA_ROOT)
 
-gen-rdf-ttl: $(PROJECT_RDF)
+gen-rdf-ttl: $(PROJECT_RDF) gen-project
 	gen-rdf -v --stacktrace -f ttl -o $(PROJECT_RDF)/saved.ttl $(SCHEMA_ROOT)
+
+rdf: gen-rdf-ttl gen-rdf-nt
 
 MKDOCS = mkdocs
 
