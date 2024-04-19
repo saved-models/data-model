@@ -181,12 +181,12 @@ classes:
         description:       Names of input columns containing collected or observed values
         range:             string
         multivalued:       true
-        required:          false
+        required:          true
       modelled_columns:
         description:       Names of input columns containing modelled or simulated values
         range:             string
         multivalued:       true
-        required:          false
+        required:          true
 
   JobDensity:
     is_a:        JobDesc
@@ -196,18 +196,23 @@ classes:
       cage_table:
         description:       Name of table which describes the cage data file
         range:             string
+        required:          true
       cage_column:
         description:       Name of column in cage table containing cage data
         range:             string
+        required:          true
       density_table:
         description:       Name of table which describes the density data file
         range:             string
+        required:          true
       density_column:
         description:       Name of column in density table containing density data
         range:             string
+        required:          true
       density_time_column:
         description:       Name of column in density table containing time data
         range:             string
+        required:          true
       
   ManifestDesc:
     description: >-
