@@ -25,7 +25,6 @@ prefixes:
 imports:
   - linkml:types
 default_prefix: saved
-default_range:  string  
 
 slots:
   
@@ -63,6 +62,7 @@ slots:
     slot_uri:        dcterms:description
     required:        false
 
+  # Table-specific slots to follow:
   resource_hash:
     description:     Hash of resource 
     range:           string
@@ -78,33 +78,7 @@ slots:
     broad_mappings:  linkml:path
     range:           string
     required:        true
-
-  table:
-    description:     Table description of a given resource, specifically matching the `atomic_name' field of a given instance of the `TableDesc' class.
-    range:           string
-    pattern:         "^:?[a-z]+[[a-z]|_|]*$"
-    required:        true
     
-  scope:
-    description: >-
-      Columns or dimensions of a given resource, which should be brought
-      into the scope of a given context. Typical use of this list is to
-      auto-generate a set of jobs or operations from this list, or to
-      permit a set of manually-specified jobs or operations to use one or
-      more of those listed.
-    range:           string
-    multivalued:     true
-    inlined:         false
-    inlined_as_list: false
-    required:        true
-    #list_elements_ordered: true
-    
-  #job_type:
-  #  description:     Job type
-  #  range:           string
-  #  required:        true
-  #  designates_type: true
-
   tables:
     description:     Specification of mappings between resources and schemas, as well as columns or dimensions to bring into into scope
     multivalued:     true
@@ -113,20 +87,67 @@ slots:
     range:           TableDesc
     required:        true
     #list_elements_ordered: true
+
+  # Columns scope-specific slots to follow:
+  column:
+    description:     Column name in table
+    range:           string
+    multivalued:     false
+    required:        true
+
+  variable:
+    description:     Name of variable underpinning column, specific to the job
+    range:           string
+    multivalued:     false
+    required:        true
+
+  table:
+    description:     Table description from which column is drawn, specifically matching the `atomic_name' field of a given instance of a `TableDesc' class.
+    range:           string
+    pattern:         "^:?[a-z]+[[a-z]|_|]*$"
+    required:        true
+
+  # Job-specific slots to follow:
+  job_type:
+    description:     Short job type
+    range:           string
+    pattern:         "^:?[a-z]+[[a-z]|_|]*$"
+    required:        true
+  
+  job_scope_descriptive:
+    description:     A collection of column descriptions which describe something about the world
+    multivalued:     true
+    inlined:         true
+    inlined_as_list: true
+    range:           ColumnDesc
+
+  job_scope_collected:
+    description:     A collection of column descriptions which are collected or sampled
+    multivalued:     true
+    inlined:         true
+    inlined_as_list: true
+    range:           ColumnDesc
     
+  job_scope_modelled:
+    description:     A collection of column descriptions which are modelled or simulated
+    multivalued:     true
+    inlined:         true
+    inlined_as_list: true
+    range:           ColumnDesc
+
   jobs:
     description:     Specification of operations to run on resources and schemas provided
     multivalued:     true
     inlined:         true
     inlined_as_list: true
-    range:           JobDesc
     required:        true
-    #list_elements_ordered: true
-    
+    range:           JobDesc
+
   gcp_source:
     description:     GCP account of the generator of the manifest
     range:           string
     required:        false
+    
   local_version:
     description:     Version number of local submission utility
     range:           string
@@ -145,75 +166,31 @@ classes:
       - resource_path
       - schema_path
       - resource_hash
-      - scope
 
-  SourceDesc:
+  ColumnDesc:
     description: >-
-      Job manifest: data-set and column selection attributes
+      Job manifest: column scope description and annotations
+
+      This has three elements:
+        1. The column name
+        2. The table from which the column is or columns are drawn
+        3. The variable underpinning the column, which is specific to the job.
     slots:
-      - atomic_name
+      - column
+      - variable
       - table
-      - scope
-                
+      
   JobDesc:
     description: >-
       Job manifest: job specification attributes which specific job sub-classes inherit
     slots:
       - atomic_name
       - title
-
-  JobDummy:
-    is_a:        JobDesc
-    description: >-
-      A 'dummy' job which will never be run. For a simple test job, try mean absolute error (MAE).
-    attributes:
-      columns:
-        description:       A set of columns
-        range:             string
-        multivalued:       true
-      
-  JobMAE:
-    is_a:        JobDesc
-    description: >-
-      Mean absolute error (MAE): compare modelled and observed values of a series
-    attributes:
-      collected_columns:
-        description:       Names of input columns containing collected or observed values
-        range:             string
-        multivalued:       true
-        required:          true
-      modelled_columns:
-        description:       Names of input columns containing modelled or simulated values
-        range:             string
-        multivalued:       true
-        required:          true
-
-  JobDensity:
-    is_a:        JobDesc
-    description: >-
-      Prediction of sea lice count given cage data, lice density and time series
-    attributes:
-      cage_table:
-        description:       Name of table which describes the cage data file
-        range:             string
-        required:          true
-      cage_column:
-        description:       Name of column in cage table containing cage data
-        range:             string
-        required:          true
-      density_table:
-        description:       Name of table which describes the density data file
-        range:             string
-        required:          true
-      density_column:
-        description:       Name of column in density table containing density data
-        range:             string
-        required:          true
-      density_time_column:
-        description:       Name of column in density table containing time data
-        range:             string
-        required:          true
-      
+      - job_type
+      - job_scope_descriptive
+      - job_scope_collected
+      - job_scope_modelled
+    
   ManifestDesc:
     description: >-
       Job manifest: complete specification
