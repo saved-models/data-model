@@ -60,23 +60,30 @@ slots:
     description:     Human-readable description of the information
     range:           string
     slot_uri:        dcterms:description
+    exact_mappings:  linkml:path
     required:        false
 
   # Table-specific slots to follow:
-  resource_hash:
-    description:     Hash of resource 
+  hash:
+    description:     Checksum of some file
     range:           string
+    exact_mappings:  linkml:hash
+  resource_hash:
+    description:     Checksum of resource
+    is_a:            hash
     required:        true
     
+  path:
+    description:     Path or URI
+    range:           uriorcurie
+    exact_mappings:  linkml:path
   resource_path:
     description:     Path or URI of resource
-    range:           string
+    is_a:            path
     required:        true
-    
   schema_path:
     description:     Path or URI of schema associated with resource
-    broad_mappings:  linkml:path
-    range:           string
+    is_a:            path
     required:        true
     
   tables:
@@ -113,28 +120,23 @@ slots:
     range:           string
     pattern:         "^:?[a-z]+[[a-z]|_|]*$"
     required:        true
-  
+
+  scope:
+    description:     A collection of column descriptions
+    multivalued:     true
+    inlined:         true
+    inlined_as_list: true
+    range:           ColumnDesc
   job_scope_descriptive:
     description:     A collection of column descriptions which describe something about the world
-    multivalued:     true
-    inlined:         true
-    inlined_as_list: true
-    range:           ColumnDesc
-
+    is_a:            scope
   job_scope_collected:
     description:     A collection of column descriptions which are collected or sampled
-    multivalued:     true
-    inlined:         true
-    inlined_as_list: true
-    range:           ColumnDesc
-    
+    is_a:            scope
   job_scope_modelled:
     description:     A collection of column descriptions which are modelled or simulated
-    multivalued:     true
-    inlined:         true
-    inlined_as_list: true
-    range:           ColumnDesc
-
+    is_a:            scope
+    
   jobs:
     description:     Specification of operations to run on resources and schemas provided
     multivalued:     true
