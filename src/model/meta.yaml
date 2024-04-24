@@ -4,7 +4,9 @@ title: >-
   SAVED meta-model
 prefixes:
   linkml: https://w3id.org/linkml/
+  rap:    http://marine.gov.scot/metadata/saved/rap/
   saved:  http://marine.gov.scot/metadata/saved/schema/
+  job:    http://marine.gov.scot/metadata/saved/schema/job_
 imports:
   - linkml:types
   - ./core
@@ -15,4 +17,6 @@ imports:
 default_prefix: saved
 
 emit_prefixes:
-  saved
+  - rap
+  - saved
+  - job

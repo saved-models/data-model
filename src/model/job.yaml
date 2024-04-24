@@ -1,4 +1,4 @@
-# Initial hypothetical type of job:
+## Initial hypothetical type of job:
 #
 # Unlike manifests which actually verify data *against* well-defined
 # schemata, the job manifest is explicitly data in and of itself,
@@ -12,8 +12,27 @@
 #' metadata, recognizing that “metadata” is often defined in relative
 #' terms."
 #
-# Some, perhaps most of the identifiers located in this part of the data
-# model should probably be moved to 'core' (not 'descriptive').
+## Default prefix for generated job manifests:
+#
+# Although the job manifest is defined as part of the SAVED data model,
+# which lives under the schema prefix `saved/schema/job/', the base
+# prefix used for the generated turtle manifest files is actually
+# `saved/rap/'. It is thus necessary to define any desired prefixes here.
+#
+# Reproducible analytical pipeline or RAP is a term current in the civil
+# service to describe a variety of processes and data pipelines
+# (primarily for statistical analysis and publishing of official
+# statistics and data). The main idea behind it is to make use of free
+# and open source packages (e.g. R or Python instead of proprietary
+# statistical software), reproducibility (e.g. version control, unit
+# tests, literate programming with R Markdown), and producing output data
+# in a variety of open formats.
+#
+# The `saved/rap' directory is intended to be the location from which the
+# job manifest, job results, data and descriptive statistics may be
+# served at a single location, which aligns closely with the concept of a
+# RAP. It also helps that the RAP word is succint and self-explanatory.
+
 id: http://marine.gov.scot/metadata/saved/schema/job/
 name: job
 title: >-
@@ -23,11 +42,18 @@ prefixes:
   dcterms: http://purl.org/dc/terms/
   linkml:  https://w3id.org/linkml/
   pav:     http://purl.org/pav/
+  rap:     http://marine.gov.scot/metadata/saved/rap/
   saved:   http://marine.gov.scot/metadata/saved/schema/
+  job:     http://marine.gov.scot/metadata/saved/schema/job_
 imports:
   - ./core
   - linkml:types
 default_prefix: saved
+
+emit_prefixes:
+  - rap
+  - saved
+  - job
 
 slots:
   
@@ -35,11 +61,11 @@ slots:
     description: >-
       Short-form name / atom: lower-case, no special characters excepting underscores
     range:           string
+    pattern:         "^:?[a-z]+[[a-z]|_|]*$"
+    exact_mappings:  dc:identifier
     broad_mappings:
       - saved:name
       - dc:title
-    pattern:         "^:?[a-z]+[[a-z]|_|]*$"
-    exact_mappings:  dc:identifier
     identifier:      true
     required:        true
 
