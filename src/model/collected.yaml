@@ -1,11 +1,11 @@
-id: http://localhost/saved/collected/
+id: http://marine.gov.scot/metadata/saved/schema/collected/
 name: collected
 title: >-
   SAVED data model: collected data
 prefixes:
   linkml: https://w3id.org/linkml/
   schema: http://schema.org/
-  saved:  http://localhost/saved/
+  saved:  http://marine.gov.scot/metadata/saved/schema/
 imports:
   - ./core
   - linkml:types

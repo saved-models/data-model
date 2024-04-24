@@ -1,10 +1,10 @@
-id: http://localhost/saved/meta/
+id: http://marine.gov.scot/metadata/saved/schema/meta/
 name: meta
 title: >-
   SAVED meta-model
 prefixes:
   linkml: https://w3id.org/linkml/
-  saved:  http://localhost/saved/
+  saved:  http://marine.gov.scot/metadata/saved/schema/
 imports:
   - linkml:types
   - ./core

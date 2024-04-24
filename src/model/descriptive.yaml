@@ -1,22 +1,15 @@
-id: http://localhost/saved/descriptive
+id: http://marine.gov.scot/metadata/saved/schema/descriptive/
 name: descriptive
 title: >-
   SAVED data model: descriptive identifiers
 prefixes:
   linkml: https://w3id.org/linkml/
-  saved:  http://localhost/saved/
+  saved:  http://marine.gov.scot/metadata/saved/schema/
 imports:
   - ./core
+  - ./types
   - linkml:types
 default_prefix: saved
-
-types:
-  
-  LatLonType:
-    pattern: "[0-9]+o [0-9]+.[0-9]+[N|W]"
-    base:    str
-    repr:    str
-    uri:     saved:LatLon
 
 slots:
   # Global spatial/location identifiers

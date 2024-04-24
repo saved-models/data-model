@@ -14,7 +14,7 @@
 #
 # Some, perhaps most of the identifiers located in this part of the data
 # model should probably be moved to 'core' (not 'descriptive').
-id: http://localhost/saved/job/
+id: http://marine.gov.scot/metadata/saved/schema/job/
 name: job
 title: >-
   SAVED data model: job template specification
@@ -23,7 +23,7 @@ prefixes:
   dcterms: http://purl.org/dc/terms/
   linkml:  https://w3id.org/linkml/
   pav:     http://purl.org/pav/
-  saved:   http://localhost/saved/
+  saved:   http://marine.gov.scot/metadata/saved/schema/
 imports:
   - ./core
   - linkml:types
@@ -94,22 +94,31 @@ slots:
     required:        true
 
   # Job-specific slots to follow:
-  scope:
+  job_scope:
     description:     A collection of column descriptions
     multivalued:     true
     inlined:         true
     inlined_as_list: true
     range:           ColumnDesc
-  scope_descriptive:
+  job_scope_descriptive:
     description:     A collection of column descriptions which describe something about the world
-    is_a:            scope
-  scope_collected:
+    is_a:            job_scope
+  job_scope_collected:
     description:     A collection of column descriptions which are collected or sampled
-    is_a:            scope
-  scope_modelled:
+    is_a:            job_scope
+  job_scope_modelled:
     description:     A collection of column descriptions which are modelled or simulated
-    is_a:            scope
-    
+    is_a:            job_scope
+
+  job_type:
+    description: >-
+      While this is analogous to Dublin Core's notion of type, it is
+      specific to jobs proper, because there is a well-defined range of
+      the jobs we know about. Undefined job types cannot be processed.
+    range:           uriorcurie
+    broad_mappings:  saved:type
+    required:        true
+      
   jobs:
     description:     Specification of operations to run on resources and schemas provided
     multivalued:     true
@@ -161,10 +170,10 @@ classes:
     slots:
       - atomic_name
       - title
-      - type
-      - scope_descriptive
-      - scope_collected
-      - scope_modelled
+      - job_type
+      - job_scope_descriptive
+      - job_scope_collected
+      - job_scope_modelled
     
   ManifestDesc:
     description: >-
