@@ -19,29 +19,25 @@ slots:
     description:    Column describes data about the world
 
   title:
-    description: >-
-      A concise human-readable display label for the element. The title should mirror the name,
-      and should use ordinary textual punctuation.
+    description:     Concise human-readable name for the element
     range:           string
     slot_uri:        dcterms:title
 
   description:
-    description:     Human-readable description of the information
+    description:     Human-readable description of the element
     range:           string
     slot_uri:        dcterms:description
 
   type:
-    description:     Nature or genre of the information
+    description:     Nature or genre of the element
     range:           string
     slot_uri:        dcterms:type
-    required:        true
 
   provenance:
     description: >-
-      Provenance of an observation, a set of observations, or a data-set
-      This is distinct from Dublin Core's notion of provenance, which
-      concerns any changes in ownership/custody of the resource since its
-      creation.
+      Provenance of an element, or a set of elements. This is distinct
+      from Dublin Core's notion of provenance, which concerns any changes
+      in ownership/custody of the resource since its creation.
     range:           string
     narrow_mappings:
       - saved:notes
