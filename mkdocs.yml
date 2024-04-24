@@ -21,5 +21,5 @@ markdown_extensions:
 nav:
   - Home:  index.md
   - Index: index.md
-site_url: https://localhost/saved/
+site_url: http://marine.gov.scot/metadata/saved/schema/
 repo_url: https://github.com/saved-models/data-model

@@ -7,7 +7,7 @@ else
 fi
 echo "Target directory is $WEBROOT"
 
-DATAMODEL=$DATAMODEL/saved
+DATAMODEL=$DATAMODEL/saved/schema
 
 rm -rf $DATAMODEL/*
 mkdir -p $DATAMODEL/schema

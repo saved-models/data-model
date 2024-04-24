@@ -25,7 +25,7 @@
 # statistics and data). The main idea behind it is to make use of free
 # and open source packages (e.g. R or Python instead of proprietary
 # statistical software), reproducibility (e.g. version control, unit
-# tests, literate programming with R Markdown), and producing output data
+# tests, literate programming with R Markdown), and producing outputs
 # in a variety of open formats.
 #
 # The `saved/rap' directory is intended to be the location from which the
