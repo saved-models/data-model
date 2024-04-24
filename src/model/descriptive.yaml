@@ -11,6 +11,7 @@ imports:
 default_prefix: saved
 
 types:
+  
   LatLonType:
     pattern: "[0-9]+o [0-9]+.[0-9]+[N|W]"
     base:    str
@@ -22,43 +23,43 @@ slots:
   northing:
     description: >-
       'X'-positional data relative to point of origin
-    range:          integer
-    is_a:           column_descriptive
+    range:           integer
+    is_a:            column_descriptive
     
   easting:
     description: >-
       'Y'-positional data relative to point of origin
-    range:          integer
-    is_a:           column_descriptive
+    range:           integer
+    is_a:            column_descriptive
 
   national_grid_reference:
-    description:    National grid reference (NGR) point of origin
-    range:          string
-    is_a:           column_descriptive
+    description:     National grid reference (NGR) point of origin
+    range:           string
+    is_a:            column_descriptive
     
   latitude:
-    description:    Latitude
-    is_a:           column_descriptive
+    description:     Latitude
+    is_a:            column_descriptive
     any_of: 
-      - range:      LatLonType
-      - range:      float
+      - range:       LatLonType
+      - range:       float
     
   longitude:
-    description:    Longitude
-    is_a:           column_descriptive
+    description:     Longitude
+    is_a:            column_descriptive
     any_of: 
-      - range:      LatLonType
-      - range:      float
+      - range:       LatLonType
+      - range:       float
     
   global_coordinate_system:
-    description:    Global coordinate system (GCS) reference point of origin
-    is_a:           column_descriptive
-    range:          string
+    description:     Global coordinate system (GCS) reference point of origin
+    is_a:            column_descriptive
+    range:           string
     
   depth:
-    description:    Depth in metres
-    range:          float
-    is_a:           column_descriptive
+    description:     Depth in metres
+    range:           float
+    is_a:            column_descriptive
     
   # Chronological identifiers
   #date:
@@ -68,9 +69,15 @@ slots:
 
   # Data-set descriptive identifiers
   series:
-    description:    Data series to which a given observation belongs
-    range:          string
-    is_a:           column_descriptive
+    description:     Data series to which a given observation belongs
+    range:           string
+    is_a:            column_descriptive
+
+  notes:
+    description:     Notes pertinent to observation, a set of observations, or a data-set
+    range:           string
+    is_a:            column_descriptive
+    narrow_mappings: saved:provenance
     
   # Model-specific spatial/location identifiers
   site_name:

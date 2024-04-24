@@ -12,6 +12,8 @@
 #' metadata, recognizing that “metadata” is often defined in relative
 #' terms."
 #
+# Some, perhaps most of the identifiers located in this part of the data
+# model should probably be moved to 'core' (not 'descriptive').
 id: http://localhost/saved/job/
 name: job
 title: >-
@@ -23,6 +25,7 @@ prefixes:
   pav:     http://purl.org/pav/
   saved:   http://localhost/saved/
 imports:
+  - ./core
   - linkml:types
 default_prefix: saved
 
@@ -39,29 +42,6 @@ slots:
     exact_mappings:  dc:identifier
     identifier:      true
     required:        true
-
-  # Not from linkml:types, only in linkml:meta and linkml:datasets
-  # Note, linkml:datasets is *not* imported by linkml:meta
-  #
-  # These are essentially duplicates of terms in Dublin Core,
-  # so it is fairly reasonable to duplicate these here too, instead of importing
-  # the entire linkml:meta or linkml:datasets
-  #
-  # Further emphasise once again that job.yaml is being used as the
-  # schema for our job manifests, see comment at top of file.
-  title:
-    description: >-
-      A concise human-readable display label for the element. The title should mirror the name,
-      and should use ordinary textual punctuation.
-    range:           string
-    slot_uri:        dcterms:title
-
-  description:
-    description:     Human-readable description of the information
-    range:           string
-    slot_uri:        dcterms:description
-    exact_mappings:  linkml:path
-    required:        false
 
   # Table-specific slots to follow:
   hash:
@@ -104,36 +84,29 @@ slots:
 
   variable:
     description:     Name of variable underpinning column, specific to the job
-    range:           string
+    range:           uriorcurie
     multivalued:     false
     required:        true
 
   table:
     description:     Table description from which column is drawn, specifically matching the `atomic_name' field of a given instance of a `TableDesc' class.
-    range:           string
-    pattern:         "^:?[a-z]+[[a-z]|_|]*$"
+    range:           uriorcurie
     required:        true
 
   # Job-specific slots to follow:
-  job_type:
-    description:     Short job type
-    range:           string
-    pattern:         "^:?[a-z]+[[a-z]|_|]*$"
-    required:        true
-
   scope:
     description:     A collection of column descriptions
     multivalued:     true
     inlined:         true
     inlined_as_list: true
     range:           ColumnDesc
-  job_scope_descriptive:
+  scope_descriptive:
     description:     A collection of column descriptions which describe something about the world
     is_a:            scope
-  job_scope_collected:
+  scope_collected:
     description:     A collection of column descriptions which are collected or sampled
     is_a:            scope
-  job_scope_modelled:
+  scope_modelled:
     description:     A collection of column descriptions which are modelled or simulated
     is_a:            scope
     
@@ -188,10 +161,10 @@ classes:
     slots:
       - atomic_name
       - title
-      - job_type
-      - job_scope_descriptive
-      - job_scope_collected
-      - job_scope_modelled
+      - type
+      - scope_descriptive
+      - scope_collected
+      - scope_modelled
     
   ManifestDesc:
     description: >-
