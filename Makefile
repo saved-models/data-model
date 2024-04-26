@@ -39,7 +39,7 @@ copy-contrib:
 	cp $(SRC)/*.md $(DOC_DIR)
 
 gen-project: $(PROJECT_DIR)
-	gen-project -d $(PROJECT_DIR) $(SCHEMA_ROOT)
+	gen-project -d $(PROJECT_DIR) --config-file gen_project_config.yaml $(SCHEMA_ROOT)
 
 gen-rdf-nt: $(PROJECT_RDF) gen-project
 	gen-rdf -v --stacktrace -f nt -o $(PROJECT_RDF)/saved.nt $(SCHEMA_ROOT)
