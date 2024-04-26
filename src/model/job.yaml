@@ -1,4 +1,4 @@
-## Initial hypothetical type of job:
+A## Initial hypothetical type of job:
 #
 # Unlike manifests which actually verify data *against* well-defined
 # schemata, the job manifest is explicitly data in and of itself,
@@ -46,7 +46,7 @@ prefixes:
   saved:   http://marine.gov.scot/metadata/saved/schema/
   job:     http://marine.gov.scot/metadata/saved/schema/job_
 imports:
-  - ./core
+  - saved:core
   - linkml:types
 default_prefix: saved
 

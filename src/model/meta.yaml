@@ -9,11 +9,11 @@ prefixes:
   job:    http://marine.gov.scot/metadata/saved/schema/job_
 imports:
   - linkml:types
-  - ./core
-  - ./collected
-  - ./descriptive
-  - ./job
-  - ./modelled
+  - saved:core
+  - saved:collected
+  - saved:descriptive
+  - saved:job
+  - saved:modelled
 default_prefix: saved
 
 emit_prefixes:

@@ -6,8 +6,8 @@ prefixes:
   linkml: https://w3id.org/linkml/
   saved:  http://marine.gov.scot/metadata/saved/schema/
 imports:
-  - ./core
-  - ./types
+  - saved:core
+  - saved:types
   - linkml:types
 default_prefix: saved
 

@@ -7,7 +7,7 @@ prefixes:
   schema: http://schema.org/
   saved:  http://marine.gov.scot/metadata/saved/schema/
 imports:
-  - ./core
+  - saved:core
   - linkml:types
 default_prefix: saved
 
