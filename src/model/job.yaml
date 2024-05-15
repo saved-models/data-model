@@ -109,7 +109,7 @@ slots:
     required:        true
 
   variable:
-    description:     Name of variable underpinning column, specific to the job
+    description:     Name of variable underpinning column, specific to the job, used for pattern-matching
     range:           uriorcurie
     multivalued:     false
     required:        true
@@ -179,12 +179,7 @@ classes:
 
   ColumnDesc:
     description: >-
-      Job manifest: column scope description and annotations
-
-      This has three elements:
-        1. The column name
-        2. The table from which the column is or columns are drawn
-        3. The variable underpinning the column, which is specific to the job.
+      Job manifest: column scope description and attributes including variable underpinning the column
     slots:
       - column
       - variable

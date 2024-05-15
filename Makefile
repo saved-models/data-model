@@ -8,7 +8,8 @@ SCHEMA_ROOT = $(SCHEMA_DIR)/meta.yaml
 PROJECT_DIR = project
 PROJECT_RDF = $(PROJECT_DIR)/rdf
 
-PYMODEL     = $(SCHEMA_DIR)/datamodel
+PYMODEL_DIR = $(PROJECT_DIR)/python
+#PYMODEL     = $(PYMODEL_DIR)/datamodel
 DOC_DIR     = docs
 SITE_DIR    = site
 
@@ -17,7 +18,7 @@ SITE_DIR    = site
 site: gen-project gen-doc build-html
 %.yaml: gen-project
 
-$(PYMODEL):
+$(PYMODEL_DIR):
 	mkdir -p $@
 
 $(DOC_DIR):
@@ -48,6 +49,16 @@ gen-rdf-ttl: $(PROJECT_RDF) gen-project
 	gen-rdf -v --stacktrace -f ttl -o $(PROJECT_RDF)/saved.ttl $(SCHEMA_ROOT)
 
 rdf: gen-rdf-ttl gen-rdf-nt
+
+gen-python: $(PYMODEL_DIR)
+	# for all the files in the schema folder, run the gen-python command and output the result to the top
+	# level of the project.  In other repos, we'd include mergeimports=True, but we don't do that with
+	# linkml-model.
+	@for file in $(wildcard $(SCHEMA_DIR)/*.yaml); do \
+		base=$$(basename $$file); \
+		filename_without_suffix=$${base%.*}; \
+		$(RUN) gen-python --genmeta $$file > $(PYMODEL_DIR)/$$filename_without_suffix.py; \
+	done
 
 MKDOCS = mkdocs
 

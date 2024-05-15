@@ -3,8 +3,9 @@ name: descriptive
 title: >-
   SAVED data model: descriptive identifiers
 prefixes:
-  linkml: https://w3id.org/linkml/
-  saved:  http://marine.gov.scot/metadata/saved/schema/
+  dcterms: http://purl.org/dc/terms/
+  linkml:  https://w3id.org/linkml/
+  saved:   http://marine.gov.scot/metadata/saved/schema/
 imports:
   - saved:core
   - saved:types

@@ -4,12 +4,13 @@ generator_args:
     genmeta: True
     mergeimports: False
 excludes:
-  - markdown  # gen-doc is run separately
-  - python    # gen-python is run separately for each source YAML file
+  - python # gen-python is run separately for each source YAML file
   - graphql
-  - markdown
   - proto
   - shex
   - shacl
   - sqltable
   - excel
+
+# - python   
+# - markdown # gen-doc is run separately
