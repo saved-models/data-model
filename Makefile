@@ -54,7 +54,14 @@ gen-rdf-ttl: $(PROJECT_RDF) gen-project
 rdf: gen-rdf-ttl gen-rdf-nt
 
 python: $(PYMODEL_DIR)
-	gen-python --genmeta --mergeimports $(SCHEMA_ROOT) > $(PYMODEL_DIR)/meta.py
+	gen-python --mergeimports $(SCHEMA_ROOT) > $(PYMODEL_DIR)/meta.py
+
+#python: $(PYMODEL_DIR)
+#	@for file in $(wildcard $(SCHEMA_DIR)/*.yaml); do \
+#		base=$$(basename $$file); \
+#		filename_without_suffix=$${base%.*}; \
+#		$(RUN) gen-python --genmeta $$file > $(PYMODEL_DIR)/$$filename_without_suffix.py; \
+#	done
 
 gen-doc: $(DOC_DIR)
 	cp $(PROJECT_DIR)/docs/*.md $(DOC_DIR) ; \
