@@ -1,11 +1,12 @@
-id: http://marine.gov.scot/metadata/saved/schema/types/
+id: http://localhost/saved/schema/types/
 name: types
 title: >-
   SAVED data model: custom data types
 prefixes:
   dcterms: http://purl.org/dc/terms/
   linkml:  https://w3id.org/linkml/
-  saved:   http://marine.gov.scot/metadata/saved/schema/
+  saved:   http://localhost/saved/schema/
+  shex:    http://www.w3.org/ns/shex#
 imports:
   - linkml:types
 default_prefix: saved

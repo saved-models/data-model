@@ -33,7 +33,7 @@
 # served at a single location, which aligns closely with the concept of a
 # RAP. It also helps that the RAP word is succint and self-explanatory.
 
-id: http://marine.gov.scot/metadata/saved/schema/job/
+id: http://localhost/saved/schema/job/
 name: job
 title: >-
   SAVED data model: job template specification
@@ -42,9 +42,9 @@ prefixes:
   dcterms: http://purl.org/dc/terms/
   linkml:  https://w3id.org/linkml/
   pav:     http://purl.org/pav/
-  rap:     http://marine.gov.scot/metadata/saved/rap/
-  saved:   http://marine.gov.scot/metadata/saved/schema/
-  job:     http://marine.gov.scot/metadata/saved/schema/job_
+  rap:     http://localhost/saved/rap/
+  saved:   http://localhost/saved/schema/
+  job:     http://localhost/saved/schema/job_
 imports:
   - saved:core
   - linkml:types
@@ -81,16 +81,20 @@ slots:
     
   path:
     description:     Path or URI
-    range:           uriorcurie
+    range:           uri
     exact_mappings:  linkml:path
   resource_path:
     description:     Path or URI of resource
     is_a:            path
     required:        true
-  schema_path:
-    description:     Path or URI of schema associated with resource
+  schema_path_yaml:
+    description:     Path or URI of schema associated with resource (LinkML YAML)
     is_a:            path
     required:        true
+  schema_path_ttl:
+    description:     Path of URI of schema associated with resource (RDF/TTL conversion of LinkML YAML)
+    is_a:            path
+    required:        false
     
   tables:
     description:     Specification of mappings between resources and schemas, as well as columns or dimensions to bring into into scope
@@ -110,14 +114,15 @@ slots:
 
   variable:
     description:     Name of variable underpinning column, specific to the job, used for pattern-matching
-    range:           uriorcurie
+    range:           ExtColumnDesc
     multivalued:     false
     required:        true
 
   table:
     description:     Table description from which column is drawn, specifically matching the `atomic_name' field of a given instance of a `TableDesc' class.
-    range:           uriorcurie
+    range:           TableDesc
     required:        true
+    multivalued:     false
 
   # Job-specific slots to follow:
   job_scope:
@@ -125,7 +130,7 @@ slots:
     multivalued:     true
     inlined:         true
     inlined_as_list: true
-    range:           ColumnDesc
+    range:           ScopeDesc
   job_scope_descriptive:
     description:     A collection of column descriptions which describe something about the world
     is_a:            job_scope
@@ -141,7 +146,7 @@ slots:
       While this is analogous to Dublin Core's notion of type, it is
       specific to jobs proper, because there is a well-defined range of
       the jobs we know about. Undefined job types cannot be processed.
-    range:           uriorcurie
+    range:           JobType
     broad_mappings:  saved:type
     required:        true
       
@@ -164,30 +169,47 @@ slots:
     required:        false
     narrow_mappings: pav:version
 
+enums:
+
+  JobType:
+    permissible_values:
+      ignore:
+        description: >-
+          Dummy job to ignore: Associated job description may describe arbitrary columns, underlying variables, or tables
+      density:
+        description: >-
+          ODE version of the sea lice accumulation model
+      
 classes:
 
   TableDesc:
     description: >-
-      Job manifest: data source descriptive attributes
+      Manifest: data source descriptive attributes
     slots:
       - atomic_name
       - title
       - description
       - resource_path
-      - schema_path
       - resource_hash
+      - schema_path_yaml
+      - schema_path_ttl
 
-  ColumnDesc:
+  ScopeDesc:
     description: >-
-      Job manifest: column scope description and attributes including variable underpinning the column
+      Manifest: column scope description and attributes including variable underpinning the column
     slots:
       - column
       - variable
       - table
-      
+
+  ExtColumnDesc:
+    description: Catch-all external column description
+    slots:
+      - atomic_name
+    
   JobDesc:
     description: >-
-      Job manifest: job specification attributes which specific job sub-classes inherit
+      Manifest: job specification attributes which specific job sub-classes inherit
     slots:
       - atomic_name
       - title
@@ -198,7 +220,7 @@ classes:
     
   ManifestDesc:
     description: >-
-      Job manifest: complete specification
+      Manifest: job invocation specification
     slots:
       - atomic_name
       - tables

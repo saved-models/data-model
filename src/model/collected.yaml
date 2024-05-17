@@ -1,4 +1,4 @@
-id: http://marine.gov.scot/metadata/saved/schema/collected/
+id: http://localhost/saved/schema/collected/
 name: collected
 title: >-
   SAVED data model: collected data
@@ -6,7 +6,7 @@ prefixes:
   dcterms: http://purl.org/dc/terms/
   linkml:  https://w3id.org/linkml/
   schema:  http://schema.org/
-  saved:   http://marine.gov.scot/metadata/saved/schema/
+  saved:   http://localhost/saved/schema/
 imports:
   - saved:core
   - linkml:types
