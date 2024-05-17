@@ -6,22 +6,29 @@
 # The RAP data directory:   saved/rap/
 # RDF / other formats under saved/schema/rdf &c., with redirect rules set up.
 
-if ( $1 == "web") then
-    set webroot=/var/www/htdocs
+if ( $1 == "prep" ) then
+    cp -v ./src/model/*.yaml /var/www/htdocs/saved/schema/linkml/.
 else
-    set webroot=../generated
-endif
-echo "Target directory is $webroot"
 
-set datamodel=$webroot/saved/schema
+    if ( $1 == "web" ) then
+	set webroot=/var/www/htdocs
+    else
+	set webroot=../generated
+    endif
+    echo "Target directory is $webroot"
 
-rm -rf $datamodel/*
-mkdir -p $datamodel/schema
+    set datamodel=$webroot/saved/schema
+    
+    rm -rf $datamodel/*
+    mkdir -p $datamodel/schema
+    mkdir -p $datamodel/linkml
 
-cp -rv ./site/* $datamodel/.
-cp -v ./src/model/*.yaml $datamodel/schema/.
-cp -rv ./project/{docs,jsonld,jsonschema,owl} $datamodel/.
+    cp -rv ./site/* $datamodel/.
+    cp -v ./src/model/*.yaml $datamodel/linkml/.
+    cp -rv ./project/{docs,jsonld,jsonschema,owl} $datamodel/.
 
-if ( -d ./project/rdf ) then
-    cp -rv ./project/rdf $datamodel/.
+    if ( -d ./project/rdf ) then
+	cp -rv ./project/rdf $datamodel/.
+    endif
+
 endif

@@ -74,5 +74,5 @@ clean:
 	rm -rf $(PROJECT_DIR)
 	rm -rf $(DOC_DIR)
 	rm -rf $(SITE_DIR)
-	rm -f  $(PYMODEL)
+	rm -f  $(PYMODEL_DIR)
 	rm -rf tmp
