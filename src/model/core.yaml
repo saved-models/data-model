@@ -1,11 +1,11 @@
-id: http://localhost/saved/schema/core/
+id: https://marine.gov.scot/metadata/saved/schema/core/
 name: core
 title: >-
   SAVED data model: core schema, simply defining skeleton of table structure
 prefixes:
   dcterms: http://purl.org/dc/terms/
   linkml:  https://w3id.org/linkml/
-  saved:   http://localhost/saved/schema/
+  saved:   https://marine.gov.scot/metadata/saved/schema/
 imports:
   - linkml:types
 default_prefix: saved

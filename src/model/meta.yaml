@@ -1,13 +1,13 @@
-id: http://localhost/saved/schema/meta/
+id: https://marine.gov.scot/metadata/saved/schema/meta/
 name: meta
 title: >-
   SAVED meta-model
 prefixes:
   dcterms: http://purl.org/dc/terms/
   linkml:  https://w3id.org/linkml/
-  rap:     http://localhost/saved/rap/
-  saved:   http://localhost/saved/schema/
-  job:     http://localhost/saved/schema/job_
+  rap:     https://marine.gov.scot/metadata/saved/rap/
+  saved:   https://marine.gov.scot/metadata/saved/schema/
+  job:     https://marine.gov.scot/metadata/saved/schema/job_
 imports:
   - linkml:types
   - saved:core

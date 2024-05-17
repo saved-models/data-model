@@ -33,7 +33,7 @@
 # served at a single location, which aligns closely with the concept of a
 # RAP. It also helps that the RAP word is succint and self-explanatory.
 
-id: http://localhost/saved/schema/job/
+id: https://marine.gov.scot/metadata/saved/schema/job/
 name: job
 title: >-
   SAVED data model: job template specification
@@ -42,9 +42,9 @@ prefixes:
   dcterms: http://purl.org/dc/terms/
   linkml:  https://w3id.org/linkml/
   pav:     http://purl.org/pav/
-  rap:     http://localhost/saved/rap/
-  saved:   http://localhost/saved/schema/
-  job:     http://localhost/saved/schema/job_
+  rap:     https://marine.gov.scot/metadata/saved/rap/
+  saved:   https://marine.gov.scot/metadata/saved/schema/
+  job:     https://marine.gov.scot/metadata/saved/schema/job_
 imports:
   - saved:core
   - linkml:types

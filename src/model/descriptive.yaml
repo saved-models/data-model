@@ -1,11 +1,11 @@
-id: http://localhost/saved/schema/descriptive/
+id: https://marine.gov.scot/metadata/saved/schema/descriptive/
 name: descriptive
 title: >-
   SAVED data model: descriptive identifiers
 prefixes:
   dcterms: http://purl.org/dc/terms/
   linkml:  https://w3id.org/linkml/
-  saved:   http://localhost/saved/schema/
+  saved:   https://marine.gov.scot/metadata/saved/schema/
 imports:
   - saved:core
   - saved:types
