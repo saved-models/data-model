@@ -17,7 +17,7 @@ MKDOCS      = mkdocs
 
 .PHONY: site python clean
 
-all: site python
+all: site rdf python
 site: gen-project gen-doc build-html
 %.yaml: gen-project
 
