@@ -1,7 +1,6 @@
-
 project:
   type: website
-  output-dir: site
+  output-dir: ../site
 
 website:
   title: "SAVED project documentation"
@@ -21,11 +20,15 @@ website:
     collapse-below: lg
     left:
       - text: "Overview"
-        href: saved/doc/misc/outline.md
+        href: index.md
       - text: "Project documentation"
-        href: saved/doc/utils/index.md
+        menu:
+          - text: "Project outline"
+            href: doc/misc/outline.md
+          - text: "Fish data utilities"
+            href: doc/utils/index.md
       - text: "Data model / ontology"
-        href: saved/schema/index.md
+        href: schema/index.md
 
   sidebar:
     - id: utils
@@ -36,20 +39,20 @@ website:
       contents:
         - section: "Project outline"
           contents:
-            - saved/doc/misc/outline.md
+            - doc/misc/outline.md
         - section: "Fish data utilities"
           contents:
-            - saved/doc/utils/index.md
-            - saved/doc/utils/schemata.md
-            - saved/doc/utils/manifest.md
-            - saved/doc/utils/debugging.md
-    - id: ontology
-      title: "Data model / ontology"
-      style: "floating"
-      collapse-level: 5
-      align: left
-      contents:
-        - saved/schema/index.md
+            - doc/utils/index.md
+            - doc/utils/schemata.md
+            - doc/utils/manifest.md
+            - doc/utils/debugging.md
+    #- id: ontology
+    #  title: "Data model / ontology"
+    #  style: "floating"
+    #  collapse-level: 5
+    #  align: left
+    #  contents:
+    #    - schema/index.md
 
 #bibliography: references.bib
 
