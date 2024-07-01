@@ -1,6 +1,8 @@
 project
-docs
+doc
+saved
 site
 tmp
 *.bak
 *~
+/.quarto/

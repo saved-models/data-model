@@ -1,4 +1,5 @@
 SRC         = src
+EXTRA_DIR   = $(SRC)/doc
 CONTRIB_DIR = $(SRC)/contrib
 
 SCHEMA_NAME = saved
@@ -10,10 +11,12 @@ PROJECT_RDF = $(PROJECT_DIR)/rdf
 
 PYMODEL_DIR = $(PROJECT_DIR)/python
 
-DOC_DIR     = docs
-SITE_DIR    = site
+DOC_DIR  = saved
+SCHEMA_DOC_DIR = $(DOC_DIR)/schema
+EXTRA_DOC_DIR  = $(DOC_DIR)/doc
+SITE_DIR       = site
 
-MKDOCS      = mkdocs
+QUARTO      = quarto
 
 .PHONY: site python clean
 
@@ -24,7 +27,10 @@ site: gen-project gen-doc build-html
 $(PYMODEL_DIR):
 	mkdir -p $@
 
-$(DOC_DIR):
+$(SCHEMA_DOC_DIR):
+	mkdir -p $@
+
+$(EXTRA_DOC_DIR):
 	mkdir -p $@
 
 $(PROJECT_DIR):
@@ -38,9 +44,6 @@ help:
 	@echo "make rdf   | additionally generate RDF (turtle and n-triples)"
 	@echo "make clean | clean up"
 	@echo "make help  | show this help message"
-
-copy-contrib:
-	cp $(SRC)/*.md $(DOC_DIR)
 
 gen-project: $(PROJECT_DIR)
 	gen-project -d $(PROJECT_DIR) --config-file gen_project_config.yaml $(SCHEMA_ROOT)
@@ -63,12 +66,16 @@ python: $(PYMODEL_DIR)
 #		$(RUN) gen-python --genmeta $$file > $(PYMODEL_DIR)/$$filename_without_suffix.py; \
 #	done
 
-gen-doc: $(DOC_DIR)
-	cp $(PROJECT_DIR)/docs/*.md $(DOC_DIR) ; \
-	gen-doc -d $(DOC_DIR) $(SCHEMA_ROOT)
+gen-doc: $(SCHEMA_DOC_DIR)
+	cp $(PROJECT_DIR)/docs/*.md $(SCHEMA_DOC_DIR) ; \
+	gen-doc -d $(SCHEMA_DOC_DIR) $(SCHEMA_ROOT)
 
-build-html:
-	mkdocs build
+copy-doc-extra: $(EXTRA_DOC_DIR)
+	cp -rv $(EXTRA_DIR)/* $(EXTRA_DOC_DIR)
+#	cp $(CONTRIB_DIR)/*.md $(DOC_DIR)
+
+build-html: copy-doc-extra
+	$(QUARTO) render saved
 
 clean:
 	rm -rf $(PROJECT_DIR)
