@@ -11,7 +11,7 @@ PROJECT_RDF = $(PROJECT_DIR)/rdf
 
 PYMODEL_DIR = $(PROJECT_DIR)/python
 
-DOC_DIR  = doc
+DOC_DIR        = saved
 SCHEMA_DOC_DIR = $(DOC_DIR)/schema
 EXTRA_DOC_DIR  = $(DOC_DIR)/doc
 SITE_DIR       = site
@@ -71,7 +71,7 @@ gen-doc: $(SCHEMA_DOC_DIR)
 	gen-doc -d $(SCHEMA_DOC_DIR) $(SCHEMA_ROOT)
 
 copy-doc-extra: $(EXTRA_DOC_DIR)
-	cp -v $(EXTRA_DIR)/index.md $(DOC_DIR)
+	cp -v  $(EXTRA_DIR)/index.md $(DOC_DIR)
 	cp -rv $(EXTRA_DIR)/{utils,misc} $(EXTRA_DOC_DIR)
 #	cp $(CONTRIB_DIR)/*.md $(DOC_DIR)
 
@@ -85,6 +85,6 @@ clean:
 	rm -rf $(SITE_DIR)
 	rm -rf $(SCHEMA_DOC_DIR)
 	rm -rf $(EXTRA_DOC_DIR)
-	rm -f $(DOC_DIR)/index.md
+	rm -f  $(DOC_DIR)/index.md
 	rm -f  $(PYMODEL_DIR)
 	rm -rf tmp
