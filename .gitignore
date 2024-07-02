@@ -1,6 +1,5 @@
 project
 site
-doc
 tmp
 *.bak
 *~

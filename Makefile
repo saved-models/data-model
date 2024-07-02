@@ -14,14 +14,17 @@ PYMODEL_DIR = $(PROJECT_DIR)/python
 DOC_DIR        = saved
 SCHEMA_DOC_DIR = $(DOC_DIR)/schema
 EXTRA_DOC_DIR  = $(DOC_DIR)/doc
+IMAGES_DOC_DIR = $(DOC_DIR)/images
 SITE_DIR       = site
+
+DIAGRAMS_DIR = $(SRC)/diagrams
 
 QUARTO = quarto
 
 .PHONY: site python clean
 
 all: site rdf python
-site: gen-project gen-doc build-html
+site: gen-project gen-doc gen-images build-html
 %.yaml: gen-project
 
 $(PYMODEL_DIR):
@@ -33,10 +36,16 @@ $(SCHEMA_DOC_DIR):
 $(EXTRA_DOC_DIR):
 	mkdir -p $@
 
+$(IMAGES_DOC_DIR):
+	mkdir -p $@
+
 $(PROJECT_DIR):
 	mkdir -p $@
 
 $(PROJECT_RDF):
+	mkdir -p $@
+
+$(DIAGRAMS_DIR):
 	mkdir -p $@
 
 help:
@@ -67,17 +76,25 @@ python: $(PYMODEL_DIR)
 #	done
 
 gen-doc: $(SCHEMA_DOC_DIR)
-	cp $(PROJECT_DIR)/docs/*.md $(SCHEMA_DOC_DIR) ; \
+	cp $(PROJECT_DIR)/docs/*.md  $(SCHEMA_DOC_DIR) ; \
 	gen-doc -d $(SCHEMA_DOC_DIR) $(SCHEMA_ROOT)
 
-copy-doc-extra: $(EXTRA_DOC_DIR)
-	cp -v  $(EXTRA_DIR)/index.md $(DOC_DIR)
+gen-images: $(DIAGRAMS_DIR)
+	cd $(DIAGRAMS_DIR) ; \
+	latexmk -dvi fisdat rap ; \
+	dvisvgm --font-format=woff fisdat.dvi ; \
+	dvisvgm --font-format=woff rap.dvi ; \
+	cd ../..
+
+copy-doc-extra: $(GEN_IMAGES) $(EXTRA_DOC_DIR) $(IMAGES_DOC_DIR)
+	cp -v  $(EXTRA_DIR)/index.qmd    $(DOC_DIR)
 	cp -rv $(EXTRA_DIR)/{utils,misc} $(EXTRA_DOC_DIR)
+	cp -v $(DIAGRAMS_DIR)/{fisdat.svg,rap.svg} $(DOC_DIR)/images/
 #	cp $(CONTRIB_DIR)/*.md $(DOC_DIR)
 
 build-html: copy-doc-extra
 	cd $(DOC_DIR) ; \
-	$(QUARTO) render ; \
+	env LIBGS=/opt/local/lib/libgs.dylib $(QUARTO) render ; \
 	cd ..
 
 clean:
@@ -85,6 +102,8 @@ clean:
 	rm -rf $(SITE_DIR)
 	rm -rf $(SCHEMA_DOC_DIR)
 	rm -rf $(EXTRA_DOC_DIR)
-	rm -f  $(DOC_DIR)/index.md
+	rm -f  $(DOC_DIR)/index.qmd
+	rm -rf $(DOC_DIR)/images
+	rm -rf $(DOC_DIR)/.quarto
 	rm -f  $(PYMODEL_DIR)
 	rm -rf tmp

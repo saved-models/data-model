@@ -20,7 +20,7 @@ website:
     collapse-below: lg
     left:
       - text: "Overview"
-        href: index.md
+        href: index.qmd
       - text: "Project documentation"
         menu:
           - text: "Project outline"
@@ -66,6 +66,9 @@ format:
       body-width:    900px
       margin-width:  300px
 
+#filters:
+#  - filters/tikz/tikz.lua
+      
 freeze: true
 
 editor: visual

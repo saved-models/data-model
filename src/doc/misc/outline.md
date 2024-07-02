@@ -2,7 +2,7 @@
 
 ## About RAP
 
-"RAP" stands for [reproducible analytical pipeline](https://ukgovdatascience.github.io/rap_companion/). This is a term commonly used in the civil service, and it is useful as it is largely self-explanatory and succint. The term is typically used to refer to the process of producing statistical reports and producing website documentation, whereas our use here is somewhat more expansive.
+"RAP" stands for reproducible analytical pipeline[^1]. This is a term commonly used in the civil service, and it is useful as it is largely self-explanatory and succint. The term is typically used to refer to the process of producing statistical reports and producing website documentation, whereas our use here is somewhat more expansive.
 
 ## Components of the pipeline
 
@@ -10,7 +10,7 @@ The first component of the pipeline is a data model based on LinkML, which defin
 
 The second component of the pipeline is a collection of local Python programs (`fisdat(1)` and `fisup(1)`) which verify data against schema files, producing a job 'manifest' file, which may then be edited to describe jobs to be run on the data. This description is then used to upload the package of data, metadata, and job description, for subsequent processing. Schema files define the structure of any associated data files (a single schema may describe more than one data file), as well as how variables in data-sets relate to an *underlying* variable (or variables) in our own data model or in other data models/ontologies. Indeed, it is further possible to link variables across different schemata, some of which may not be in the parent data model or commonly-used ontologies, such as specific column names/aliases. 
 
-The third component of the pipeline is subsequent processing of our data. This is a computer program which monitors some location for data uploaded, runs jobs described by the data, then 'bakes' the data into a package describing input, jobs specified, and output. A job is typically associated with some computer program run by the pipeline, and the package produced by the pipeline includes a static web page describing results, including any descriptive statistics or visualisations which can be generated. This is pushed to a well-known location, allowing results to be retrieved using a web browser.
+The third component of the pipeline is subsequent processing of our data. This is a computer program which monitors some location for data uploaded, runs jobs described by the data, then 'bakes'[^2] the data into a package describing input, jobs specified, and output. A job is typically associated with some computer program run by the pipeline, and the package produced by the pipeline includes a static web page describing results, including any descriptive statistics or visualisations which can be generated. This is pushed to a well-known location, allowing results to be retrieved using a web browser.
 
 ## The pipeline step-by-step
 
@@ -30,6 +30,12 @@ The third component of the pipeline is subsequent processing of our data. This i
 
 Notably, this processing of data is distinctly decoupled from the place to which data are submitted, in the sense that this is a computer program monitoring multiple locations on the net to which data may be submitted. This may be 'cloud' storage services like Amazon Web Services or Google Cloud Platform (GCP), another computer program implementing an object store not unlike these services, or some directory local to the computer program. The current implementation monitors a 'bucket' on the Google Cloud Storage service.
 
-The computer program in question is written in the Elixir programming language (which runs on the Erlang/OTP platform) due to the extensive library support for 'stages' (GenStage) as well as Elixir and Erlang/OTP's common concurrency and fault-tolerant properties. This should allow the RAP program to scale (including across multiple computers), which is especially important if we use the thing extensively, or if there are a number of components which we run on different machines (e.g. cache, web server, data submission).
+The computer program in question is written in the Elixir programming language[^3] (which runs on the Erlang/OTP platform[^4]) due to the extensive library support for 'stages' (GenStage[^5]) as well as Elixir and Erlang/OTP's common concurrency and fault-tolerant properties. This should allow the RAP program to scale (including across multiple computers), which is especially important if we use the thing extensively, or if there are a number of components which we run on different machines (e.g. cache, web server, data submission).
 
 While something like Python may be more widely used, the tooling for writing a data ingestion pipeline like ours is somewhat limited, as is Python's concurrency support and support for functional programming. Therefore, even if Python had been selected, there would have been a number of technical issues to solve or be re-implemented.
+
+[^1]: [RAP Companion](https://ukgovdatascience.github.io/rap_companion/)
+[^2]: [The Baked Data architectural pattern](https://simonwillison.net/2021/Jul/28/baked-data/)
+[^3]: [`https://elixir-lang.org/`](https://elixir-lang.org/)
+[^4]: [`https://www.erlang.org/`](https://www.erlang.org/)
+[^5]: [Announcing GenStage](https://elixir-lang.org/blog/2016/07/14/announcing-genstage/)
