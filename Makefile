@@ -11,7 +11,7 @@ PROJECT_RDF = $(PROJECT_DIR)/rdf
 
 PYMODEL_DIR = $(PROJECT_DIR)/python
 
-DOC_DIR        = saved
+DOC_DIR        = staging
 SCHEMA_DOC_DIR = $(DOC_DIR)/schema
 EXTRA_DOC_DIR  = $(DOC_DIR)/doc
 IMAGES_DOC_DIR = $(DOC_DIR)/images
@@ -88,9 +88,11 @@ gen-images: $(DIAGRAMS_DIR)
 	cd ../..
 
 copy-doc-extra: $(GEN_IMAGES) $(EXTRA_DOC_DIR) $(IMAGES_DOC_DIR)
-	cp -v  $(EXTRA_DIR)/index.qmd    $(DOC_DIR)
-	cp -rv $(EXTRA_DIR)/{utils,misc} $(EXTRA_DOC_DIR)
-	cp -v $(DIAGRAMS_DIR)/{fisdat.svg,rap.svg} $(DOC_DIR)/images/
+	mkdir -p $(EXTRA_DOC_DIR)/{utils,misc,contrib} ; \
+	cp -v $(EXTRA_DIR)/index.md   $(DOC_DIR)/. ; \
+	cp -v $(EXTRA_DIR)/utils/*.md $(EXTRA_DOC_DIR)/utils/. ; \
+	cp -v $(EXTRA_DIR)/misc/*.md  $(EXTRA_DOC_DIR)/misc/. ; \
+	cp -v $(DIAGRAMS_DIR)/*.svg   $(DOC_DIR)/images/.
 #	cp $(CONTRIB_DIR)/*.md $(DOC_DIR)
 
 build-html: copy-doc-extra
@@ -103,7 +105,7 @@ clean:
 	rm -rf $(SITE_DIR)
 	rm -rf $(SCHEMA_DOC_DIR)
 	rm -rf $(EXTRA_DOC_DIR)
-	rm -f  $(DOC_DIR)/index.qmd
+	rm -f  $(DOC_DIR)/index.md
 	rm -rf $(DOC_DIR)/images
 	rm -rf $(DOC_DIR)/.quarto
 	rm -f  $(PYMODEL_DIR)

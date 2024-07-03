@@ -20,7 +20,7 @@ website:
     collapse-below: lg
     left:
       - text: "Overview"
-        href: index.qmd
+        href: index.md
       - text: "Project documentation"
         menu:
           - text: "Project outline"
@@ -31,6 +31,14 @@ website:
         href: schema/index.md
       - text: "RAP results"
         href: rap/index.md
+  drafts:
+    - doc/misc/outline.md
+    - doc/misc/contributing.md
+    - doc/utils/index.md
+    - doc/utils/schemata.md
+    - doc/utils/manifest.md
+    - doc/utils/debugging.md
+  draft-mode: visible
 
   sidebar:
     - id:             utils
@@ -55,20 +63,20 @@ website:
 
 format:
   html:
-    toc: true
-    theme: cosmo
+    toc:           true
+    theme:         cosmo
     code-copy:     true
     code-overflow: wrap
-    #include-after-body: js.html
     grid:
       sidebar-width: 250px
       body-width:    900px
       margin-width:  300px
-    # Note here that / *is* /saved/
+    # Note here that web-root (/) *is* /saved/
     header-includes: |
-      <link rel="stylesheet" href="/assets/app.css" type="text/css"/>
+      <link rel="stylesheet" href="/assets/fira.css" type="text/css"/>
     mainfont: Fira Sans
     monofont: Fira Mono
+   
 
 #filters:
 #  - filters/tikz/tikz.lua

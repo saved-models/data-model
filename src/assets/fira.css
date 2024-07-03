@@ -1,0 +1,12 @@
+@font-face{
+  font-family: "Fira Sans";
+  src: url("/saved/assets/FiraSans-Regular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+}
+@font-face{
+    font-family: "Fira Mono";
+    src: url("/saved/assets/FiraMono-Regular.ttf") format("truetype");
+    font-style: monospace;
+    font-weight: 400;
+}
