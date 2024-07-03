@@ -19,6 +19,7 @@ SITE_DIR       = site
 
 DIAGRAMS_DIR = $(SRC)/diagrams
 
+LIBPS  = /opt/local/lib/libgs.dylib
 QUARTO = quarto
 
 .PHONY: site python clean
@@ -81,9 +82,9 @@ gen-doc: $(SCHEMA_DOC_DIR)
 
 gen-images: $(DIAGRAMS_DIR)
 	cd $(DIAGRAMS_DIR) ; \
-	latexmk -dvi fisdat rap ; \
-	dvisvgm --font-format=woff fisdat.dvi ; \
-	dvisvgm --font-format=woff rap.dvi ; \
+	env LIBGS=$(LIBPS) latexmk -dvi fisdat rap ; \
+	env LIBGS=$(LIBPS) dvisvgm --font-format=woff fisdat.dvi ; \
+	env LIBGS=$(LIBPS) dvisvgm --font-format=woff rap.dvi ; \
 	cd ../..
 
 copy-doc-extra: $(GEN_IMAGES) $(EXTRA_DOC_DIR) $(IMAGES_DOC_DIR)
@@ -94,7 +95,7 @@ copy-doc-extra: $(GEN_IMAGES) $(EXTRA_DOC_DIR) $(IMAGES_DOC_DIR)
 
 build-html: copy-doc-extra
 	cd $(DOC_DIR) ; \
-	env LIBGS=/opt/local/lib/libgs.dylib $(QUARTO) render ; \
+	env LIBGS=$(LIBPS) $(QUARTO) render ; \
 	cd ..
 
 clean:
