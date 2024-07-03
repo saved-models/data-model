@@ -15,7 +15,9 @@ DOC_DIR        = staging
 SCHEMA_DOC_DIR = $(DOC_DIR)/schema
 EXTRA_DOC_DIR  = $(DOC_DIR)/doc
 IMAGES_DOC_DIR = $(DOC_DIR)/images
-SITE_DIR       = site
+
+SITE_DIR        = site
+SCHEMA_SITE_DIR = $(SITE_DIR)/schema
 
 DIAGRAMS_DIR = $(SRC)/diagrams
 
@@ -24,8 +26,8 @@ QUARTO = quarto
 
 .PHONY: site python clean
 
-all: site rdf python
-site: gen-project gen-doc gen-images build-html
+all: site gen-python copy-rdf
+site: gen-project gen-doc gen-images build-site copy-most-formats
 %.yaml: gen-project
 
 $(PYMODEL_DIR):
@@ -61,9 +63,9 @@ gen-rdf-nt: $(PROJECT_RDF) gen-project
 gen-rdf-ttl: $(PROJECT_RDF) gen-project
 	gen-rdf -v --stacktrace -f ttl -o $(PROJECT_RDF)/saved.ttl $(SCHEMA_ROOT)
 
-rdf: gen-rdf-ttl gen-rdf-nt
+gen-rdf: gen-rdf-ttl gen-rdf-nt
 
-python: $(PYMODEL_DIR)
+gen-python: $(PYMODEL_DIR)
 	gen-python --mergeimports $(SCHEMA_ROOT) > $(PYMODEL_DIR)/meta.py
 
 #python: $(PYMODEL_DIR)
@@ -90,14 +92,22 @@ clean-images:
 	rm -f {fisdat,rap}.{dvi,svg} ; \
 	cd ../..
 
-copy-doc-extra: $(GEN_IMAGES) $(EXTRA_DOC_DIR) $(IMAGES_DOC_DIR)
+copy-doc: $(GEN_IMAGES) $(EXTRA_DOC_DIR) $(IMAGES_DOC_DIR)
 	mkdir -p $(EXTRA_DOC_DIR)/{utils,misc,contrib} ; \
 	cp -v $(EXTRA_DIR)/index.md   $(DOC_DIR)/. ; \
 	cp -v $(EXTRA_DIR)/utils/*.md $(EXTRA_DOC_DIR)/utils/. ; \
 	cp -v $(EXTRA_DIR)/misc/*.md  $(EXTRA_DOC_DIR)/misc/. ; \
 	mv -v $(DIAGRAMS_DIR)/*.svg   $(DOC_DIR)/images/.
 
-build-html: copy-doc-extra
+copy-most-formats: $(SCHEMA_DOC_DIR)
+	mkdir -p $(SCHEMA_SITE_DIR)/linkml ; \
+	cp -v $(SCHEMA_DIR)/*.yaml $(SCHEMA_SITE_DIR)/linkml/. ; \
+	cp -rv $(PROJECT_DIR)/{docs,jsonld,jsonschema,owl} $(SCHEMA_SITE_DIR)/.
+
+copy-rdf: $(SCHEMA_DOC_DIR) gen-rdf copy-most-formats
+	cp -rv $(PROJECT_RDF) $(SCHEMA_SITE_DIR)/.
+
+build-site: copy-doc
 	cd $(DOC_DIR) ; \
 	env LIBGS=$(LIBPS) $(QUARTO) render ; \
 	cd .. ; \

@@ -20,14 +20,5 @@ else
     set datamodel=$webroot/saved/
     
     rm -rf $datamodel/*
-    mkdir -p $datamodel/schema/linkml
-
     cp -rv ./site/* $datamodel/.
-    cp -v ./src/model/*.yaml $datamodel/schema/linkml/.
-    cp -rv ./project/{docs,jsonld,jsonschema,owl} $datamodel/schema/.
-
-    if ( -d ./project/rdf ) then
-	cp -rv ./project/rdf $datamodel/schema/.
-    endif
-
 endif
