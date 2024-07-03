@@ -10,16 +10,16 @@ else
     fi
     echo "Target directory is $WEBROOT"
 
-    DATAMODEL=$DATAMODEL/saved/schema
+    DATAMODEL=$WEBROOT/saved
 
     rm -rf $DATAMODEL/*
     mkdir -p $DATAMODEL/schema
 
     cp -rv ./site/* $DATAMODEL/.      # Built HTML
-    cp -v ./src/model/*.yaml $DATAMODEL/schema/.
-    cp -rv ./project/{docs,jsonld,jsonschema,owl} $DATAMODEL/.
+    cp -v ./src/model/*.yaml $DATAMODEL/schema/linkml/.
+    cp -rv ./project/{docs,jsonld,jsonschema,owl} $DATAMODEL/schema/.
     
     if [ -d ./project/rdf ]; then
-	cp -rv ./project/rdf $DATAMODEL/.
+	cp -rv ./project/rdf $DATAMODEL/schema/.
     fi
 fi

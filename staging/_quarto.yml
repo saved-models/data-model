@@ -29,8 +29,8 @@ website:
             href: doc/utils/index.md
       - text: "Data model / ontology"
         href: schema/index.md
-      - text: "RAP results"
-        href: rap/index.md
+      #- text: "RAP results"
+      #  href: rap/index.md
   drafts:
     - doc/misc/outline.md
     - doc/misc/contributing.md

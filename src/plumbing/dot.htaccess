@@ -1,0 +1,54 @@
+# file http://marine.gov.scot/metadata/saved/schema/.htaccess
+# Copied from https://github.com/perma-id/w3id.org/blob/master/linkml/.htaccess
+# albeit nailing down the recursive problems was decidedly non-trivial!
+
+Options +FollowSymLinks
+RewriteEngine on
+
+#RewriteRule ^$ html/ [L]
+
+#RewriteRule ^([a-z|_|-|\.]+)\.html$ $1.html
+RewriteRule ^([a-z|_|-|\.]+)\.md docs/$1.md
+RewriteRule ^([a-z]+)\.yaml$ linkml/$1.yaml
+RewriteRule ^([a-z]+)\.graphql$ graphql/$1.graphql
+###RewriteRule ^([a-z]+)\.context.json$ jsonld/$1context.jsonld [R=302]
+###RewriteRule ^([a-z]+)\.context.jsonld$ jsonld/$1context.jsonld [R=302]
+###RewriteRule ^([a-z]+)\.schema.json$ jsonschema/$1.schema.json [R=302]
+RewriteRule ^([a-z]+)\.context.json$ jsonld/meta.context.jsonld
+RewriteRule ^([a-z]+)\.context.jsonld$ jsonld/meta.context.jsonld
+RewriteRule ^([a-z]+)\.schema.json$ jsonschema/meta.schema.json
+RewriteRule ^([a-z]+)\.json$ json/$1.json
+RewriteCond %{REQUEST_URI} !\.owl\.
+RewriteRule ^([a-z]+)\.ttl$ rdf/$1.ttl
+RewriteRule ^([a-z]+)\.nt$ rdf/$1.nt
+RewriteRule ^([a-z]+)\.owl$ owl/$1.owl.ttl
+RewriteRule ^([a-z]+)\.shex$ shex/$1.shex
+RewriteRule ^([a-z]+)\.shexc$ shex/$1.shex
+RewriteRule ^([a-z]+)\.shexj$ shex/$1.shexj
+
+# Poor man's conneg
+# ------------------------------------
+RewriteCond %{REQUEST_URI} !\.[^./]+$
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^(.*[^/])$ $1.ttl [L]
+
+RewriteCond %{REQUEST_URI} !\.[^./]+$
+RewriteCond %{HTTP_ACCEPT} text/yaml
+RewriteRule ^(.*[^/])$ $1.yaml [L]
+
+RewriteCond %{REQUEST_URI} !\.[^./]+$
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^(.*[^/])$ $1.json [L]
+
+RewriteCond %{REQUEST_URI} !\.[^./]+$
+RewriteCond %{HTTP_ACCEPT} ^text/shex
+RewriteRule ^(.*[^/])$ $1.shex [L]
+
+#RewriteCond %{REQUEST_URI} !\.[a-zA-Z0-9]+$
+#RewriteCond %{REQUEST_URI} !/docs/
+#RewriteCond %{HTTP_ACCEPT} ^text/html
+#RewriteRule ^(.*[^/])$ $1 [L]
+
+RewriteCond %{REQUEST_URI} !\.[^./]+$
+RewriteCond %{HTTP_ACCEPT} ^application/ld\+json
+RewriteRule ^(.*[^/])$ meta.context.jsonld [L]

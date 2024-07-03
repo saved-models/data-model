@@ -98,7 +98,9 @@ copy-doc-extra: $(GEN_IMAGES) $(EXTRA_DOC_DIR) $(IMAGES_DOC_DIR)
 build-html: copy-doc-extra
 	cd $(DOC_DIR) ; \
 	env LIBGS=$(LIBPS) $(QUARTO) render ; \
-	cd ..
+	cd .. ; \
+	cp -rv src/assets site/. ; \
+	cp -v src/plumbing/dot.htaccess site/schema/.htaccess
 
 clean:
 	rm -rf $(PROJECT_DIR)
