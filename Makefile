@@ -46,9 +46,6 @@ $(PROJECT_DIR):
 $(PROJECT_RDF):
 	mkdir -p $@
 
-$(DIAGRAMS_DIR):
-	mkdir -p $@
-
 help:
 	@echo "make site  | build markdown documentation and HTML site"
 	@echo "make rdf   | additionally generate RDF (turtle and n-triples)"
@@ -80,11 +77,17 @@ gen-doc: $(SCHEMA_DOC_DIR)
 	cp $(PROJECT_DIR)/docs/*.md  $(SCHEMA_DOC_DIR) ; \
 	gen-doc -d $(SCHEMA_DOC_DIR) $(SCHEMA_ROOT)
 
-gen-images: $(DIAGRAMS_DIR)
+gen-images:
 	cd $(DIAGRAMS_DIR) ; \
 	env LIBGS=$(LIBPS) latexmk -dvi fisdat rap ; \
 	env LIBGS=$(LIBPS) dvisvgm --font-format=woff fisdat.dvi ; \
 	env LIBGS=$(LIBPS) dvisvgm --font-format=woff rap.dvi ; \
+	cd ../..
+
+clean-images:
+	cd $(DIAGRAMS_DIR) ; \
+	latexmk -c ; \
+	rm -f {fisdat,rap}.{dvi,svg} ; \
 	cd ../..
 
 copy-doc-extra: $(GEN_IMAGES) $(EXTRA_DOC_DIR) $(IMAGES_DOC_DIR)
@@ -92,8 +95,7 @@ copy-doc-extra: $(GEN_IMAGES) $(EXTRA_DOC_DIR) $(IMAGES_DOC_DIR)
 	cp -v $(EXTRA_DIR)/index.md   $(DOC_DIR)/. ; \
 	cp -v $(EXTRA_DIR)/utils/*.md $(EXTRA_DOC_DIR)/utils/. ; \
 	cp -v $(EXTRA_DIR)/misc/*.md  $(EXTRA_DOC_DIR)/misc/. ; \
-	cp -v $(DIAGRAMS_DIR)/*.svg   $(DOC_DIR)/images/.
-#	cp $(CONTRIB_DIR)/*.md $(DOC_DIR)
+	mv -v $(DIAGRAMS_DIR)/*.svg   $(DOC_DIR)/images/.
 
 build-html: copy-doc-extra
 	cd $(DOC_DIR) ; \
@@ -102,7 +104,7 @@ build-html: copy-doc-extra
 	cp -rv src/assets site/. ; \
 	cp -v src/plumbing/dot.htaccess site/schema/.htaccess
 
-clean:
+clean: clean-images
 	rm -rf $(PROJECT_DIR)
 	rm -rf $(SITE_DIR)
 	rm -rf $(SCHEMA_DOC_DIR)
