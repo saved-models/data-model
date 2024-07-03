@@ -1,6 +1,7 @@
 #!/bin/sh
 
 if [ $1 == "prep" ]; then
+    mkdir -p /var/www/htdocs/saved/schema/linkml
     cp -v ./src/model/*.yaml /var/www/htdocs/saved/schema/linkml/.
 else
     if [ $1 == "web" ]; then
@@ -13,7 +14,7 @@ else
     DATAMODEL=$WEBROOT/saved
 
     rm -rf $DATAMODEL/*
-    mkdir -p $DATAMODEL/schema
+    mkdir -p $DATAMODEL/schema/linkml
 
     cp -rv ./site/* $DATAMODEL/.      # Built HTML
     cp -v ./src/model/*.yaml $DATAMODEL/schema/linkml/.

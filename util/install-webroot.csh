@@ -7,7 +7,7 @@
 # RDF / other formats under saved/schema/rdf &c., with redirect rules set up.
 
 if ( $1 == "prep" ) then
-    mkdir -p /var/www/htdocs/saved/schema
+    mkdir -p /var/www/htdocs/saved/schema/linkml
     cp -v ./src/model/*.yaml /var/www/htdocs/saved/schema/linkml/.
 else
     if ( $1 == "web" ) then
@@ -20,8 +20,7 @@ else
     set datamodel=$webroot/saved/
     
     rm -rf $datamodel/*
-    mkdir -p $datamodel/schema
-    mkdir -p $datamodel/linkml
+    mkdir -p $datamodel/schema/linkml
 
     cp -rv ./site/* $datamodel/.
     cp -v ./src/model/*.yaml $datamodel/schema/linkml/.
