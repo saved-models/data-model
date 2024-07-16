@@ -3,7 +3,7 @@
 As it stands, the fish data utilities work-flow can be summarised as follows:
 
 1. We write **schema** files for data, which are based on [LinkML](https://linkml.io/linkml/)
-2. The `fisdat(1)` utility validates and appends metadata to the description manifest, which is a **data** file in YAML or RDF/TTL, the schema of which is the [`job` component of the data model](`https://marine.gov.scot/metadata/saved/schema/job.yaml`)
+2. The `fisdat(1)` utility validates and appends metadata to the description manifest, which is a **data** file in YAML or RDF/TTL, the schema of which is the [`job` component of the data model](https://marine.gov.scot/metadata/saved/schema/job.yaml)
 3. The data description manifest can be edited to describe jobs to be run on the data
 4. Upon upload, the `fisup(1)` utility:
    1. Checks that the referenced data exists, and that the checksum matches
