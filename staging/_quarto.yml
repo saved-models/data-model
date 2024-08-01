@@ -37,6 +37,7 @@ website:
     - doc/utils/index.md
     - doc/utils/schemata.md
     - doc/utils/manifest.md
+    - doc/utils/worked_example.md
     - doc/utils/debugging.md
   draft-mode: visible
 
@@ -57,6 +58,7 @@ website:
             - doc/utils/index.md
             - doc/utils/schemata.md
             - doc/utils/manifest.md
+            - doc/utils/worked_example.md
             - doc/utils/debugging.md
 
 #bibliography: references.bib
